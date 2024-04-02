@@ -2,20 +2,21 @@ import { Link } from 'react-router-dom'
 import { useSpring, animated } from '@react-spring/web'
 import { useState } from 'react';
 import { interpolate } from "flubber";
+import { gamedata } from '../../data/games';
 
-export function GameButton({game, color}) {
+export function GameButton({game}) {
     const [active, setActive] = useState(false)
 
     return (
-        <Link className="group flex relative" to={"/games/tsuro"} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
+        <Link className="group flex relative" to={`/games/${game}`} state={{ from: location.pathname }} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
             <div className="absolute text-gray p-4 md:p-6 flex flex-col z-10">
-                <p className={`font-lobster text-base md:text-xl text-${color}`}>{game.charAt(0).toUpperCase() + game.slice(1)}</p>
+                <p className={`font-lobster text-base md:text-xl text-${gamedata[game].color}`}>{game.charAt(0).toUpperCase() + game.slice(1)}</p>
                 <div className="mt-6 text-xs md:text-sm">
-                    <p><span className={`font-bold text-${color}`}>4</span> Live Games</p>
-                    <p><span className={`font-bold text-${color}`}>12</span> Active Players</p>
+                    <p><span className={`font-bold text-${gamedata[game].color}`}>4</span> Live Games</p>
+                    <p><span className={`font-bold text-${gamedata[game].color}`}>12</span> Active Players</p>
                 </div>
             </div>
-            <Animation color={color} active={active}/>
+            <Animation color={gamedata[game].color} active={active}/>
         </Link>
     )
 }
@@ -41,6 +42,7 @@ function Animation({color, active}) {
                 width="100%" height="100%" 
                 viewBox="0 0 224 224" >
                 <animated.path 
+                    className={`fill-dark-900 group-hover:fill-dark-600`}
                     fillRule="evenodd" 
                     clipRule="evenodd"
                     d={x.to({
@@ -51,7 +53,7 @@ function Animation({color, active}) {
                         ],
                       })} />
                 <animated.path
-                    className={`fill-${color} group-hover:fill-dark-900 transition ease-in-out duration-200`}
+                    className={`fill-${color} group-hover:fill-dark-600 transition ease-in-out duration-200`}
                     d={x.to(i)} />
                 <animated.path className={`fill-white group-hover:fill-${color} transition ease-in-out duration-200`} 
                     d={x.to({
