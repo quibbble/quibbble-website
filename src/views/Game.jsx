@@ -1,11 +1,16 @@
 
 import { useParams } from 'react-router-dom';
 import { useQuibbbleGame } from "../hooks/QuibbbleGame";
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { gamedata } from '../data/games';
+import { ThemeContext } from '../App';
 
 export function Game() {
 
     let { gameKey, gameId } = useParams();
+
+    const { setTheme } = useContext(ThemeContext);
+    useEffect(() => setTheme(gamedata[gameKey].color), [])
 
     const [game, send] = useQuibbbleGame({
         host: "apiv2.quibbble.com",

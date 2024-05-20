@@ -1,10 +1,14 @@
 import { Navbar } from "../components/navbar/Navbar";
 import { GameButton } from "../components/game_button/GameButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { gamedata } from "../data/games";
 import { QCorner } from "../components/qcorner/QCorner";
+import { ThemeContext } from "../App";
 
 export function Games() {
+
+  const { setTheme } = useContext(ThemeContext);
+  useEffect(() => setTheme("yellow"), [])
 
   const [search, setSearch] = useState("")
   const [filtered, setFiltered] = useState(Object.keys(gamedata))

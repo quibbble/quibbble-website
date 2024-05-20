@@ -1,19 +1,22 @@
 import { Link } from 'react-router-dom'
 import { useSpring, animated } from '@react-spring/web'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { interpolate } from "flubber";
 import { gamedata } from '../../data/games';
+import { ActivityContext } from '../../App';
 
 export function GameButton({game}) {
     const [active, setActive] = useState(false)
+
+    const { activity } = useContext(ActivityContext);
 
     return (
         <Link className="group flex relative" to={`/games/${game}`} state={{ from: location.pathname }} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
             <div className="absolute text-gray p-4 md:p-6 flex flex-col z-10">
                 <p className={`font-lobster text-base md:text-xl text-${gamedata[game].color}`}>{game.charAt(0).toUpperCase() + game.slice(1)}</p>
                 <div className="mt-6 text-xs md:text-sm">
-                    <p><span className={`font-bold text-${gamedata[game].color}`}>4</span> Live Games</p>
-                    <p><span className={`font-bold text-${gamedata[game].color}`}>12</span> Active Players</p>
+                    <p><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_game_count[game] }</span> Live Games</p>
+                    <p><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_player_count[game] }</span> Active Players</p>
                 </div>
             </div>
             <Animation color={gamedata[game].color} active={active}/>

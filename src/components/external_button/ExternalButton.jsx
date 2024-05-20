@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import { gamedata } from '../../data/games';
-import { BsPersonFill } from "react-icons/bs";
-import { IoSettingsSharp } from "react-icons/io5";
 import { Animation } from "./Animation"
 
 export function ExternalButton({color, href, children}) {

@@ -54,9 +54,8 @@ export default {
   safelist: [
     { pattern: /text-*/ },
     { pattern: /bg-*/ },
-    { pattern: /hover:bg-*/ },
     { pattern: /fill-*/ },
-    "outline-yellow",
+    { pattern: /outline-*/ },
     "hover:text-yellow",
     "hover:text-red",
     "hover:text-orange",

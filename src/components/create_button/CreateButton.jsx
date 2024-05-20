@@ -1,79 +1,79 @@
 import { useState } from 'react';
 import { gamedata } from '../../data/games';
 import { BsPersonFill } from "react-icons/bs";
-import { IoSettingsSharp } from "react-icons/io5";
 import { Animation } from "./Animation"
+import { createGame } from '../../services/quibbble';
+import { useNavigate } from 'react-router-dom';
+import { CreateID } from '../../utils/id';
 
-const types = {
+const kinds = {
     'ai': {
         description: 'Play against the computer in your browser.',
-        settings: null
     },
     'multiplayer': {
         description: 'Share a link and play with friends online.',
-        settings: {
-            async: false
-        }
     },
     'local': {
         description: 'Share a device and play against friends locally.',
-        settings: null
     }
 }
 
-export function CreateButton({game, type}) {
-    // todo - generate from server
-    const id = 'id'
+export function CreateButton({gameKey, kind}) {
+
+    const navigate = useNavigate()
 
     const [teams, setTeams] = useState(2)
-    const [openTeams, setOpenTeams] = useState(false)
+    const [variant, setVariant] = useState(gamedata[gameKey].variants ? gamedata[gameKey].variants[0] : null)
 
-    const [settings, setSettings] = useState(types[type].settings)
-    const [openSettings, setOpenSettings] = useState(false)
+    const handlePlay = async e => {
+        e.preventDefault()
+        const gameId = CreateID()
+        let resp = await createGame(gameKey, gameId, teams, variant, kind)
+        if (resp.status == 201) {
+            navigate(`/play/${ gameKey }/${ gameId }`)
+        } else {
+            navigate("/error")
+        }
+    }
+
+    const handleTeams = e => {
+        e.preventDefault()
+        e.stopPropagation()
+        setTeams(teams => teams+1 > gamedata[gameKey].maxTeams ? gamedata[gameKey].minTeams : teams+1)
+    }
+
+    const handleVariants = e => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (variant) {
+            let idx = gamedata[gameKey].variants.indexOf(variant)
+            let next = (idx + 1) % gamedata[gameKey].variants.length
+            setVariant(gamedata[gameKey].variants[next])
+        }
+    }
 
     return (
-        <div className="group flex relative cursor-pointer" state={{ from: location.pathname }}>
-            <div className="pointer-events-none absolute text-gray p-8 flex flex-col items-center z-10 h-full">
-                <p className={`font-lobster text-4xl text-${gamedata[game].color}`}>{type.charAt(0).toUpperCase() + type.slice(1)}</p>
-                <p className='mt-4 grow'>{types[type].description}</p>
-                <div className={`self-start flex text-sm pointer-events-auto`}>
-                    <div onClick={() => setOpenTeams(open => !open)}>
-                        <div className={`flex items-center p-2 rounded-xl hover:outline outline-2 outline-${gamedata[game].color} transition ease-in-out duration-500 bg-${gamedata[game].color} hover:bg-dark-900 text-dark-900 hover:text-${gamedata[game].color}`}>{teams} <BsPersonFill className='text-xl' /></div>
-                        { openTeams ? (
-                            <ul className={`absolute rounded-lg bg-${gamedata[game].color}`}>
-                                {
-                                    Array(gamedata[game].maxTeams - gamedata[game].minTeams + 1).fill().map((_, idx) => gamedata[game].minTeams + idx).map(i => 
-                                        <li onClick={() => setTeams(i)} key={i} className={`hover:bg-dark-700 text-white hover:text-${gamedata[game].color} w-full py-2 px-4 rounded-md cursor-pointer`}>
-                                            {i}
-                                        </li>
-                                    )
-                                }
-                            </ul>
-                        ) : <></> }
+        <div onClick={ handlePlay } className="group flex relative cursor-pointer">
+            <div className="pointer-events-none absolute text-gray p-8 flex flex-col items-center z-50 h-full">
+                <h1 className={`font-lobster text-4xl text-${gamedata[gameKey].color}`}>{kind.charAt(0).toUpperCase() + kind.slice(1)}</h1>
+                <p className='mt-4 grow'>{kinds[kind].description}</p>
+                <div className='self-start flex'>
+                    <div className={`self-end flex text-sm pointer-events-auto cursor-pointer`}>
+                        <div onClick={ handleTeams }>
+                            <div className={`flex items-center p-2 rounded-xl hover:outline outline-2 outline-${gamedata[gameKey].color} transition ease-in-out duration-500 bg-${gamedata[gameKey].color} hover:bg-dark-900 text-dark-900 hover:text-${gamedata[gameKey].color}`}>{teams} <BsPersonFill className='text-xl' /></div>
+                        </div>
                     </div>
-                    
-                   { settings ?
-                     <div onClick={() => setOpenSettings(open => !open)}>
-                        <div className={`ml-2 flex items-center p-2 rounded-xl hover:outline outline-2 outline-${gamedata[game].color} transition ease-in-out duration-500 bg-${gamedata[game].color} hover:bg-dark-900 text-dark-900 hover:text-${gamedata[game].color}`}><IoSettingsSharp className='text-xl' /></div>
-                        { openSettings ? (
-                            <ul className={`absolute rounded-lg bg-${gamedata[game].color}`}>
-                                {
-                                    Object.keys(settings).map((k, i) => 
-                                        <li onClick={() => {
-                                                let updated = {}
-                                                updated[k] = !settings[k]
-                                                setSettings({...settings, ...updated})
-                                            }} key={i} className='py-2 px-4 flex text-white'>
-                                            <div>{ k }</div>
-                                            <div className='ml-2'>{ settings[k].toString() }</div>
-                                        </li>)
-                                }
-                            </ul>
-                        ) : <></> }
-                    </div> : <></> }
+                    {
+                        variant ? 
+                            <div className={`ml-2 max-w-16 self-start flex text-sm pointer-events-auto cursor-pointer`}>
+                                <div onClick={ handleVariants }>
+                                    <div className={`flex font-black items-center p-2 rounded-xl hover:outline outline-2 outline-${gamedata[gameKey].color} transition ease-in-out duration-500 bg-${gamedata[gameKey].color} hover:bg-dark-900 text-dark-900 hover:text-${gamedata[gameKey].color}`}>{variant.replace("_", " ")}</div>
+                                </div>
+                            </div> : null
+                    }
                 </div>
             </div>
-            <Animation color={gamedata[game].color} />
+            <Animation color={gamedata[gameKey].color} />
         </div>
     )
 }

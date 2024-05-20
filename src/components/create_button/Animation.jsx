@@ -28,7 +28,7 @@ export function Animation({color}) {
     });
 
     return (
-        <div onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}> 
+        <div className='w-full' onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}> 
             <svg className="fill-dark-900 drop-shadow-md" 
                 width="100%" height="100%" 
                 viewBox="0 0 224 224" >

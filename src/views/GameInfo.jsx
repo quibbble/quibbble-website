@@ -6,10 +6,15 @@ import { BiTimeFive } from "react-icons/bi";
 import { FaDumbbell } from "react-icons/fa";
 import { QCorner } from "../components/qcorner/QCorner";
 import { CreateButton } from "../components/create_button/CreateButton";
+import { useContext, useEffect } from "react";
+import { ActivityContext, ThemeContext } from "../App";
 
 export function GameInfo() {
 
     let { gameKey } = useParams();
+
+    const { setTheme } = useContext(ThemeContext);
+    useEffect(() => setTheme(gamedata[gameKey].color), [])
 
     return (
         <div className="flex flex-col items-center m-8">
@@ -24,18 +29,15 @@ export function GameInfo() {
                             <Banner game={ gameKey } />
                             <div className="mt-2 md:mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[100ms]">
-                                    <CreateButton game={gameKey} type={'ai'} />
+                                    <CreateButton gameKey={gameKey} kind={'ai'} />
                                 </span>
                                 <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[200ms]">
-                                    <CreateButton game={gameKey} type={'multiplayer'} />
+                                    <CreateButton gameKey={gameKey} kind={'multiplayer'} />
                                 </span>
                                 <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[300ms]">
-                                    <CreateButton game={gameKey} type={'local'} />
+                                    <CreateButton gameKey={gameKey} kind={'local'} />
                                 </span>
                             </div>
-                            {/* <div className="hidden md:flex mt-2 md:mt-4 grow bg-dark-900 rounded-3xl p-8 text-gray">
-                                TODO
-                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -52,11 +54,13 @@ function Banner({ game }) {
         2: "hard"
     }
 
+    const { activity } = useContext(ActivityContext);
+
     return (
         <div className="flex flex-wrap-reverse justify-between items-center w-full bg-dark-900 p-8 rounded-3xl opacity-0 animate-fade fill-mode-forwards drop-shadow-md">
             <div className="flex md:flex-col text-xs md:text-sm text-gray">
-                <p className="mr-2 mb-4 md:mb-0"><span className={`font-bold text-${gamedata[game].color}`}>4</span> Live Games</p>
-                <p><span className={`font-bold text-${gamedata[game].color}`}>12</span> Active Players</p>
+                <p className="mr-2 mb-4 md:mb-0"><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_game_count[game] }</span> Live Games</p>
+                <p><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_player_count[game] }</span> Active Players</p>
             </div>
             <div className="flex text-gray">
                 <p className="flex items-center text-xs md:text-sm">{ gamedata[game].minTeams == gamedata[game].maxTeams ? `${gamedata[game].minTeams }` : `${gamedata[game].minTeams }-${ gamedata[game].maxTeams}` } <BsPersonFill className="ml-1 text-xl" /></p>

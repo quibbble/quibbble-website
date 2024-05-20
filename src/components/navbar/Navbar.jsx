@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import { TiThMenu } from "react-icons/ti";
 import { IoClose } from "react-icons/io5";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { BiSolidDonateHeart } from "react-icons/bi";
+import { ThemeContext } from '../../App';
 
 export function Navbar() {
+
+    const { theme } = useContext(ThemeContext);
 
     const [displayMobile, setDisplayMobile] = useState(false)
 
@@ -30,26 +34,23 @@ export function Navbar() {
         <div className='hidden md:flex justify-between items-center w-full drop-shadow-md'>
             <Link to={'/'} state={{ from: location.pathname }} className={logo}>quibbble</Link>
             <Nav />
-            <div className='text-dark-900 ml-8'>
-                <Link className={path == '/login' ? authMatch : auth} to={'/login'} state={{ from: location.pathname }}>login</Link>
-                &nbsp;/&nbsp;
-                <Link className={path == '/signup' ? authMatch : auth} to={'/signup'} state={{ from: location.pathname }}>signup</Link>
-            </div>
+            <a href={"https://www.buymeacoffee.com/quibbble"} target="_blank" className='flex items-center justify-center'>
+                donate <BiSolidDonateHeart className='ml-1 text-xl' />
+            </a>
         </div>
         <div className='flex md:hidden justify-between w-full'>
             {
                 displayMobile ? 
                     <div className='absolute flex flex-col items-center justify-center w-full h-full z-50 top-0 left-0 bg-dark-900'>
-                        <div className='absolute mx-8 my-8 cursor-pointer top-0 right-0 text-dark-900 bg-yellow rounded-full p-2 text-xl' onClick={() => setDisplayMobile(false)}>
+                        <div className={`absolute mx-8 my-8 cursor-pointer top-0 right-0 text-dark-900 bg-${theme} rounded-full p-2 text-xl`} onClick={() => setDisplayMobile(false)}>
                             <IoClose />
                         </div>
                         <div className='flex flex-col items-center'>
-                            <Link className={`${path == '/' ? 'text-yellow' : 'text-gray'} mb-4 font-bold`} to={'/'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>home</Link>
-                            <Link className={`${path == '/games' ? 'text-yellow' : 'text-gray'} mb-4 font-bold`} to={'/games'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>games</Link>
-                            <Link className={`${path == '/community' ? 'text-yellow' : 'text-gray'} mb-4 font-bold`} to={'/community'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>community</Link>
-                            <Link className={`${path == '/faq' ? 'text-yellow' : 'text-gray'} mb-4 font-bold`} to={'/faq'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>faq</Link>
-                            <Link className={`${path == '/login' ? 'text-yellow' : 'text-gray'} mb-4 font-bold`} to={'/login'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>login</Link>
-                            <Link className={`${path == '/signup' ? 'text-yellow' : 'text-gray'} mb-4 font-bold`} to={'/signup'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>signup</Link>
+                            <Link className={`${path == '/' ? `text-${theme}` : 'text-gray'} mb-4 font-bold`} to={'/'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>home</Link>
+                            <Link className={`${path == '/games' ? `text-${theme}` : 'text-gray'} mb-4 font-bold`} to={'/games'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>games</Link>
+                            <Link className={`${path == '/community' ? `text-${theme}` : 'text-gray'} mb-4 font-bold`} to={'/community'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>community</Link>
+                            <Link className={`${path == '/faq' ? `text-${theme}` : 'text-gray'} mb-4 font-bold`} to={'/faq'} state={{ from: location.pathname }} onClick={() => setDisplayMobile(false)}>faq</Link>
+                            <a href={"https://www.buymeacoffee.com/quibbble"} target="_blank">donate</a>
                         </div>
                     </div> : <></>
             }
@@ -62,12 +63,14 @@ export function Navbar() {
   
 function Nav() {
 
+    const { theme } = useContext(ThemeContext);
+
     const path = window.location.pathname
 
     const btn = `
         group
         px-4 py-2 mr-2 
-        bg-dark-700 hover:bg-yellow
+        bg-dark-700 hover:bg-${theme}
         rounded-full
         text-gray hover:text-dark-900
         hover:font-bold hover:tracking-tight 
@@ -78,7 +81,7 @@ function Nav() {
     const btnMatch = `
         group
         px-4 py-2 mr-2 
-        bg-yellow
+        bg-${theme}
         rounded-full 
         text-dark-900
         font-bold tracking-tight 
@@ -102,9 +105,12 @@ function Nav() {
   
 
 function NavMobile({ open }) {
+
+    const { theme } = useContext(ThemeContext);
+
     return (
         <div className='bg-dark-900 rounded-full p-2 flex items-center justify-center cursor-pointer drop-shadow-md' onClick={() => open()}>
-            <TiThMenu className='fill-yellow text-xl' />
+            <TiThMenu className={`fill-${theme} text-xl`} />
         </div>
     )
 }
