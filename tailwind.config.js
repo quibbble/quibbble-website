@@ -30,7 +30,7 @@ export default {
       'turquoise': '#31FFA8',
       'indigo': '#6731FF',
       'sky': '#31C1FF',
-      'blue': '#3139FF',
+      'blue': '#545bff',
       'pink': '#FF31D2',
       'green': '#35FF31',
       'magenta': '#E231FF',

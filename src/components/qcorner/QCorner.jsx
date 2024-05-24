@@ -29,13 +29,13 @@ export function QCorner() {
                 <h1 className={`text-${theme} font-bold text-xl font-lobster`}>
                     Q-Corner
                 </h1>
-                <div onClick={() => setShowConnections(!showConnections)} className="text-gray text-xs italic relative cursor-pointer hover:underline">
+                <div onClick={() => setShowConnections(!showConnections)} className="text-gray text-xs italic relative cursor-pointer hover:underline select-none">
                     {qcorner && qcorner.connection.names ? qcorner.connection.names.length : 0} online
                     {
                         showConnections ? 
-                            <div className={`left-[-7rem] w-36 absolute bg-dark-600 p-2 mt-2 rounded-md text-white z-50 not-italic drop-shadow-md`}>
+                            <div className={`left-[-10rem] text-sm w-48 absolute bg-dark-600 px-4 py-2 mt-2 rounded-md z-50 not-italic drop-shadow-md`}>
                                 {
-                                    qcorner?.connection?.names?.map((name, i) => <div key={i} className="mb-2">{ name }</div>)
+                                    qcorner?.connection?.names?.map((name, i) => <div key={i} className={`font-bold mt-${ i == 0 ? '0' : '1' }`}>{ name }</div>)
                                 }
                             </div> : <></>
                     }
@@ -48,11 +48,11 @@ export function QCorner() {
                             <div key={ i } className={`mb-2 ${name == m.name ? "ml-8 self-end flex flex-col items-end" : "mr-8"}`}>
                                 {
                                     i == 0 || (i > 0 && qcorner.chat[i-1].name != m.name) ? 
-                                        <div className={`text-xs text-gray w-full ${name == m.name ? "text-right" : "text-left"}`}>
+                                        <div className={`mb-2 text-xs font-bold text-gray w-full ${name == m.name ? "text-right" : "text-left"}`}>
                                             { m.name }
                                         </div> : <></>
                                 }
-                                <div className={`mt-1 p-4 w-fit rounded-2xl ${name == m.name ? `bg-${theme} text-dark-900` : "bg-dark-600 text-slate"} text-xs`}>
+                                <div className={`px-3 py-2 w-fit max-w-96 md:max-w-48 text-pretty break-words rounded-2xl ${name == m.name ? `bg-${theme} text-dark-900` : "bg-dark-600 text-slate"} text-xs font-bold`}>
                                     { m.message }
                                 </div>
                             </div>
