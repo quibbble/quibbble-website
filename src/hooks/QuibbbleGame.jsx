@@ -39,7 +39,7 @@ export function useQuibbbleGame({ host, gameKey, gameId }) {
                     if (!ws.current || reconnecting) return
                     setGame(((p) => { return({ ...p, online: false }) }))
                     setReconnecting(true)
-                    setTimeout(() => setReconnecting(false), 1000)
+                    setTimeout(() => setReconnecting(false), 3000)
                 }
             }
         }

@@ -66,7 +66,7 @@ export function QCorner() {
                 `}>
                     <textarea value={message} onChange={ e => {setMessage(e.target.value)} } onKeyDown={ e => {
                         if (e.key === 'Enter' && message.length > 0) {
-                            send(message) 
+                            send({type: "chat", details: message}) 
                             setMessage("")
                         }}
                     } maxLength="120" className={`resize-none bg-dark-700 rounded-2xl z-10 grow w-full m-4 p-2 focus:outline focus:outline-2 outline-${theme} text-slate placeholder-gray`} placeholder="type to chat..."/>

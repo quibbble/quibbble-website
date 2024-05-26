@@ -19,6 +19,54 @@ export function Chat({ gameKey, gameId, game, send }) {
         }
     ])
 
+    const [kind, setKind] = useState()
+    useEffect(() => {
+        if (game.snapshot && game.snapshot.kind && game.snapshot.kind != kind) setKind(game.snapshot.kind)
+    }, [game.snapshot])
+
+    useEffect(() => {
+        if (kind) {
+            if (kind == "multiplayer") {
+                let msgs = [
+                    {
+                        name: "qbot",
+                        message: <div>Please share this link to play with others <CopyText text={ window.location.href } /></div>
+                    },
+                    {
+                        name: "qbot",
+                        message: <p className="">Please select a team</p>
+                    }
+                ]
+                for (let color of game.snapshot.teams) {
+                    msgs.push({
+                        name: "qbot",
+                        message: <p onClick={ () => sendJoin(color) } className={`text-base text-${ color } cursor-pointer`}>{ color }</p>
+                    })
+                }
+                setMessages(m => { return m.concat(msgs)})
+            }
+            else if (kind == "ai") {
+                let msgs = [
+                    {
+                        name: "qbot",
+                        message: <div>This is a single player game against the AI.</div>
+                    },
+                ]
+                setMessages(m => { return m.concat(msgs)})
+                sendJoin("red")
+            }
+            else if (kind == "local") {
+                let msgs = [
+                    {
+                        name: "qbot",
+                        message: <div>This is a local game.</div>
+                    },
+                ]
+                setMessages(m => { return m.concat(msgs)})
+            }
+        }
+    }, [kind])
+
     const messagesEndRef = useRef(null)
     const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: `smooth` }) }
     useEffect(() => { scrollToBottom() }, [messages]);
@@ -39,23 +87,6 @@ export function Chat({ gameKey, gameId, game, send }) {
         if (game.online) {
             let team = localStorage.getItem(`${ gameKey }-${ gameId }`)
             if (team) sendJoin(team)
-            else {
-                let msgs = [
-                    {
-                        name: "qbot",
-                        message: <p className="">Please select a team</p>
-                    },
-                    {
-                        name: "qbot",
-                        message: <p onClick={ () => sendJoin("red") } className="text-base text-red cursor-pointer">red</p>
-                    },
-                    {
-                        name: "qbot",
-                        message: <p onClick={ () => sendJoin("blue") } className="text-base text-blue cursor-pointer">blue</p>
-                    }
-                ]
-                setMessages((m) => { return m.concat(msgs) })
-            }
         }
     }, [game.online])
 
@@ -86,14 +117,41 @@ export function Chat({ gameKey, gameId, game, send }) {
         }
     }, [team])
 
+    useEffect(() => {
+        if (kind == "ai") {
+            if (team && game.snapshot.turn != team) sendAi()
+        } else if (kind == "local") {
+            if (team && game.snapshot.turn != team) {
+                sendJoin("") // clear the team to prevent teams from seeing each others game states
+            } else if (!team) {
+                let msgs = [
+                    {
+                        name: "qbot",
+                        message: <p className="cursor-pointer text-yellow" onClick={ () => { sendJoin(game.snapshot.turn) }}>It's now <span className={`text-${ game.snapshot.turn }`}>{ game.snapshot.turn }</span>'s turn. Pass the device and then click this message when ready to play for <span className={`text-${ game.snapshot.turn }`}>{ game.snapshot.turn }</span>.</p>
+                    }
+                ]
+                setMessages(m => { return m.concat(msgs)})
+            }
+        }
+    }, [kind, team, game.snapshot])
 
-    // QBot - on join with no team display helpful commands message
-        // Welcome to Connect4! Type /help for a list of helpful commands.
-    // QBot - message on join to select a team
-        // If all teams are filled display a different message saying you can still join and play together or just spectate
-    // Save gameid and team to local storage
-    // Rejoin team on reconnect if in local storage
-    // QBot - message when a player joins a team
+    useEffect(() => {
+        setTimeout(() => { // kind of a hack to show this message last on page reload ang game is over
+            if (game.snapshot && game.snapshot.winners && game.snapshot.winners.length > 0) {
+                let msgs = [
+                    {
+                        name: "qbot",
+                        message: <div className="text-yellow">{ game.snapshot.winners.map((team, i) => <><span className={`text-${team}`}>{ team }</span>{ i == game.snapshot.winners.length - 1 ? "" : "," } </>) } { game.snapshot.winners.length > 1 ? "all tied!" : "has won the game!" }</div>
+                    },
+                    {
+                        name: "qbot",
+                        message: <div className="text-yellow cursor-pointer" onClick={() => { sendReset() }}>Click on this message to reset and play again!</div>
+                    }
+                ]
+                setMessages(m => { return m.concat(msgs)})
+            }
+        }, 50)
+    }, [game.snapshot])
 
     return (
         <div className='bg-dark-900 h-64 md:h-full md:w-96 rounded-3xl flex flex-col'>
@@ -186,5 +244,29 @@ export function Chat({ gameKey, gameId, game, send }) {
                 </div>
             </div>
         </div>
+    )
+}
+
+function CopyText({ text }) {
+    const [copy, setCopy] = useState(false);
+    useEffect(() => { 
+        if (copy) setTimeout(() => setCopy(false), 1000) 
+    }, [copy]);
+
+    return (
+        <div className="relative text-yellow cursor-pointer underline" onClick={() => {
+            setCopy(true);
+            navigator.clipboard.writeText(text)
+         }}><p>{ text }</p>
+            {
+                copy ?
+                    <div className="absolute mt-2 w-6/12 flex justify-center">
+                        <div className="absolute top-[-12px] w-6 overflow-hidden inline-block">
+                            <div className=" h-4 w-4 bg-dark-900 rotate-45 transform origin-bottom-left" />
+                        </div>
+                        <div className="text-slate font-bold text-xs text-center bg-dark-900 p-2 rounded-md">copied!</div>
+                    </div> : <></>
+            }
+         </div>
     )
 }

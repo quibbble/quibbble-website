@@ -30,6 +30,7 @@ export function useQCorner() {
                     let msg = JSON.parse(e.data)
                     if (msg.type === "connection") setQCorner(((p) => { return({ ...p, connection: msg.details }) }))
                     else if (msg.type === "chat") setQCorner(((p) => { return({ ...p, chat: p.chat.concat([msg.details]) }) }))
+                    else if (msg.type === "pong") console.debug("pong")
                 }
     
                 client.onclose = () => {
@@ -49,8 +50,13 @@ export function useQCorner() {
 
     const send = useCallback((msg) => {
         if (!ws.current) return
-        ws.current.send(msg)
+        ws.current.send(JSON.stringify(msg))
      }, [ws])
+
+     useEffect(() => {
+        // send ping every 30s to keep connection alive
+        setInterval(() => { send({type: "ping"}) }, 30000)
+    }, [])
 
     return [qcorner, send]
 }

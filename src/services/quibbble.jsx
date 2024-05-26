@@ -6,8 +6,6 @@ const host = import.meta.env.VITE_QUIBBBLE_HOST
 
 export const createGame = async (key, id, teams, variant, kind) => {
 
-    const name = localStorage.getItem("name")
-
     let colors = [
         "red", "blue", "green", "yellow", "orange", "pink", "purple", "teal"
     ]
@@ -22,8 +20,17 @@ export const createGame = async (key, id, teams, variant, kind) => {
 
     let config = {
         method: 'POST',
-        url: `https://${ host }/game?name=${ name }`,
+        url: `https://${ host }/game`,
         data: qgn
+    };
+    return axios(config)
+        .catch(error => error.response)
+}
+
+export const loadGame = async (key, id) => {
+    let config = {
+        method: 'PUT',
+        url: `https://${ host }/game?key=${ key }&id=${ id }`,
     };
     return axios(config)
         .catch(error => error.response)
