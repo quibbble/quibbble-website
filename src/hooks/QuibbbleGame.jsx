@@ -10,7 +10,7 @@ export function useQuibbbleGame({ host, gameKey, gameId }) {
         online: false,
         snapshot: {},
         connection: {},
-        error: {},
+        error: "",
         chat: []
     })
 

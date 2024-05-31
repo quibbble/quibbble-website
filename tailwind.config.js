@@ -56,6 +56,7 @@ export default {
     { pattern: /bg-*/ },
     { pattern: /fill-*/ },
     { pattern: /outline-*/ },
+    { pattern: /border-*/ },
     "hover:text-yellow",
     "hover:text-red",
     "hover:text-orange",

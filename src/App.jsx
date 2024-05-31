@@ -43,16 +43,16 @@ export default function App() {
         <ActivityContext.Provider value={{ activity: activity }}>
 
           <BrowserRouter>
-              <Routes>
-                  <Route exact path="/games" element={ <Games /> } />
-                  <Route exact path="/games/:gameKey" element={ <GameInfo /> } />
-                  <Route exact path="/play/:gameKey/:gameId" element={ <Game /> } />
-                  <Route exact path="/community" element={ <Community /> } />
-                  <Route exact path="/faq" element={ <FAQ /> } />
-                  <Route exact path="/error" element={ <Error /> } />
-                  <Route exact path="/" element={ <Home /> } />
-                  <Route path="*" element={ <Navigate to="/" /> } />
-              </Routes>
+            <Routes>
+                <Route exact path="/games" element={ <Games /> } />
+                <Route exact path="/games/:gameKey" element={ <GameInfo /> } />
+                <Route exact path="/play/:gameKey/:gameId" element={ <Game /> } />
+                <Route exact path="/community" element={ <Community /> } />
+                <Route exact path="/faq" element={ <FAQ /> } />
+                <Route exact path="/error" element={ <Error /> } />
+                <Route exact path="/" element={ <Home /> } />
+                <Route path="*" element={ <Navigate to="/" /> } />
+            </Routes>
           </BrowserRouter>
 
         </ActivityContext.Provider>

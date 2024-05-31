@@ -19,9 +19,21 @@ export function Chat({ gameKey, gameId, game, send }) {
         }
     ])
 
+    useEffect(() => {
+        if (game.error) setMessages(m => { return m.concat({
+            name: "qbot",
+            message: <p><span className="font-bold text-red">Error</span> { game.error }</p>
+        })})
+    }, [game.error])
+
     const [kind, setKind] = useState()
     useEffect(() => {
         if (game.snapshot && game.snapshot.kind && game.snapshot.kind != kind) setKind(game.snapshot.kind)
+    }, [game.snapshot])
+
+    const [turn, setTurn] = useState()
+    useEffect(() => {
+        if (game.snapshot && game.snapshot.turn && game.snapshot.turn != turn) setTurn(game.snapshot.turn)
     }, [game.snapshot])
 
     useEffect(() => {
@@ -107,8 +119,8 @@ export function Chat({ gameKey, gameId, game, send }) {
     }, [game.connection])
 
     useEffect(() => {
+        localStorage.setItem(`${ gameKey }-${ gameId }`, team)
         if (team) {
-            localStorage.setItem(`${ gameKey }-${ gameId }`, team)
             let msg = {
                 name: "qbot",
                 message: <p className="">You have joined team <span className={`text-${ team }`}>{ team }</span>!</p>
@@ -119,9 +131,9 @@ export function Chat({ gameKey, gameId, game, send }) {
 
     useEffect(() => {
         if (kind == "ai") {
-            if (team && game.snapshot.turn != team) sendAi()
+            if (team && turn != team) sendAi()
         } else if (kind == "local") {
-            if (team && game.snapshot.turn != team) {
+            if (team && turn != team) {
                 sendJoin("") // clear the team to prevent teams from seeing each others game states
             } else if (!team) {
                 let msgs = [
@@ -133,7 +145,7 @@ export function Chat({ gameKey, gameId, game, send }) {
                 setMessages(m => { return m.concat(msgs)})
             }
         }
-    }, [kind, team, game.snapshot])
+    }, [kind, team, turn])
 
     useEffect(() => {
         setTimeout(() => { // kind of a hack to show this message last on page reload ang game is over

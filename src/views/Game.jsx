@@ -1,15 +1,25 @@
 
 import { Link, useParams } from 'react-router-dom';
 import { useQuibbbleGame } from "../hooks/QuibbbleGame";
-import { createRef, useContext, useEffect, useRef, useState } from 'react';
+import { createRef, useContext, useEffect, useState } from 'react';
 import { gamedata } from '../data/games';
 import { ThemeContext } from '../App';
 import { Chat } from './game/Chat';
-import { Connect4 } from './game/games/Connect4';
+import { Connect4 } from './game/games/connect4/Connect4';
+import { Carcassonne } from './game/games/carcassonne/Carcassonne';
+import { Tsuro } from './game/games/tsuro/Tsuro';
+import { TicTacToe } from './game/games/tictactoe/TicTacToe';
+import { Indigo } from './game/games/indigo/Indigo';
+import { Stratego } from './game/games/stratego/Stratego';
 import { loadGame } from "../services/quibbble";
 
 const games = {
-    connect4: (ref, game, send) => <Connect4 ref={ ref } game={ game } send={ send } />
+    carcassonne: (ref, game, send) => <Carcassonne ref={ ref } game={ game } send={ send } />,
+    connect4: (ref, game, send) => <Connect4 ref={ ref } game={ game } send={ send } />,
+    indigo: (ref, game, send) => <Indigo ref={ ref } game={ game } send={ send } />,
+    stratego: (ref, game, send) => <Stratego ref={ ref } game={ game } send={ send } />,
+    tsuro: (ref, game, send) => <Tsuro ref={ ref } game={ game } send={ send } />,
+    tictactoe: (ref, game, send) => <TicTacToe ref={ ref } game={ game } send={ send } />,
 }
 
 export function Game() {
@@ -43,8 +53,8 @@ export function Game() {
             <div className="flex w-full h-screen">
                 <div className='flex flex-col md:flex-row w-full md:grow m-2 lg:m-4 opacity-0 animate-fade fill-mode-forwards'>
                     <div ref={ ref } className='relative bg-dark-900 w-full grow md:h-full rounded-3xl mb-2 md:mb-0 mr-0 md:mr-2 lg:mr-4 p-4 mg:p-8'>
-                        <div className='absolute top-4 md:top-auto md:bottom-8 left-4 md:left-6 '>
-                            <Link to={'/'} state={{ from: location.pathname }} className={`font-lobster text-slate text-2xl md:text-3xl cursor-pointer`}>quibbble</Link>
+                        <div className='absolute top-4 md:top-auto md:bottom-8 left-4 md:left-6 z-50'>
+                            <Link to={'/'} state={{ from: location.pathname }} className={`font-lobster text-slate text-2xl lg:text-3xl cursor-pointer`}>quibbble</Link>
                         </div>
                         <div className='absolute top-4 md:top-auto md:bottom-8 right-4 md:right-6 '>
                             <Turns teams={ game.snapshot.teams ? game.snapshot.teams : [] } turn={ game.snapshot.turn ? game.snapshot.turn : "" } winners={ game.snapshot.winners ? game.snapshot.winners : [] } />
@@ -56,7 +66,7 @@ export function Game() {
             </div> : 
             <div className="flex flex-col w-full h-screen items-center justify-center opacity-0 animate-fade fill-mode-forwards">
                 <div className="flex flex-col items-center justify-center p-8 bg-dark-900 rounded-3xl">
-                    <h1 className={`text-${ theme } font-lobster mb-4 text-3xl drop-shadow-m`}>{ found ? "Loading your game!" : "Game not found"}</h1>
+                    <h1 className={`text-white font-lobster mb-4 text-3xl drop-shadow-m`}>{ found ? "Loading your game!" : "Game not found"}</h1>
                     <div className="flex mb-4">
                         <div className={`loader text-${ theme } m-[1.66rem] ${ !found ? "!animate-none" : "" }`}></div>
                         <div className={`loader text-${ theme } m-[1.66rem] ${ !found ? "!animate-none" : "" }`}></div>
@@ -76,7 +86,6 @@ export function Game() {
 }
 
 import { FaCrown } from "react-icons/fa6";
-import { MdArrowRight } from "react-icons/md";
 
 function Turns({ teams, turn, winners }) {
 
@@ -85,17 +94,16 @@ function Turns({ teams, turn, winners }) {
         `${ turn }'s turn to play!`
 
     return (
-        <div className={`flex bg-dark-500 p-1 rounded-full`} title={ title }>
+        <div className={`flex p-1 rounded-full`} title={ title }>
             {
                 teams.map((team, i) => 
-                    <div className={`${ i == teams.length-1 ? "" : "mr-1" } flex items-center`}>
-                        <div className={`${ team == turn ? "opacity-100" : "opacity-35" } bg-${ team } w-5 md:w-7 h-5 md:h-7 rounded-full flex items-center justify-center`}>
+                    <div key={ i } className={`${ i == teams.length-1 ? "" : "mr-1" } flex items-center`}>
+                        <div className={`${ (winners.length > 0 && winners.includes(team)) || (winners.length == 0 && team == turn) ? "opacity-100" : "opacity-20" } bg-${ team } w-5 lg:w-7 h-5 lg:h-7 rounded-full flex items-center justify-center`}>
                             {
                                 winners.includes(team) ? 
-                                    <FaCrown className='md:text-xl fill-white' /> : <></>
+                                    <FaCrown className='lg:text-xl fill-white' /> : <></>
                             }
                         </div>
-                        { i == teams.length-1 ? <></> : <MdArrowRight className='fill-slate text-2xl md:text-4xl -m-1 md:-m-2' /> }
                     </div>
             )
             }
