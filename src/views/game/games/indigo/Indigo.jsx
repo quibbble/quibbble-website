@@ -1,12 +1,13 @@
 import React, { useEffect, useState, forwardRef, useCallback } from "react";
-import { BsArrowClockwise, BsArrowUp } from "react-icons/bs";
 import DropSpace from "./DropSpace";
 import { Tile, DraggableTile } from "./Tile";
 import { DndContext, PointerSensor, useSensors, useSensor } from '@dnd-kit/core';
 
 export const Indigo = forwardRef((props, ref) => {
 
-    const name = localStorage.getItem("name")
+    let name = localStorage.getItem("name")
+    const split = name.split(":")
+    if (split.length == 2 && split[0] == "quibbble") name = "quibbble"
 
     const { game, send } = props;
 

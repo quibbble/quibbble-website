@@ -13,6 +13,7 @@ import { Agree } from './views/Agree';
 import { TermsOfService } from './views/TermsOfService';
 import { PrivacyPolicy } from './views/PrivacyPolicy';
 import { QCornerProvider } from './components/qcorner/QCornerProvider';
+import { Profile } from './views/Profile';
 
 export const ThemeContext = createContext(null);
 export const ActivityContext = createContext(null);
@@ -59,6 +60,7 @@ export default function App() {
                     <Route exact path="/community" element={ <Community /> } />
                     <Route exact path="/faq" element={ <FAQ /> } />
                     <Route exact path="/error" element={ <Error /> } />
+                    <Route exact path="/profile" element={ <Profile /> } />
                     <Route exact path="/" element={ <Home /> } />
                     <Route path="*" element={ <Navigate to="/" /> } />
                   </>

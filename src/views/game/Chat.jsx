@@ -6,7 +6,9 @@ export function Chat({ gameKey, gameId, game, send }) {
 
     const { theme } = useContext(ThemeContext);
 
-    const name = localStorage.getItem("name")
+    let name = localStorage.getItem("name")
+    const split = name.split(":")
+    if (split.length == 2 && split[0] == "quibbble") name = "quibbble"
 
     const [winners, setWinners] = useState([])
     useEffect(() => { if (game.snapshot && game.snapshot.winners && game.snapshot.winners.length != winners.length) setWinners(game.snapshot.winners) }, [game.snapshot])
@@ -172,7 +174,7 @@ export function Chat({ gameKey, gameId, game, send }) {
     }, [winners])
 
     return (
-        <div className='bg-dark-900 h-64 md:h-full md:w-96 rounded-3xl flex flex-col'>
+        <div className='bg-dark-700 h-64 md:h-full md:w-96 rounded-3xl flex flex-col'>
             <div className={`
                 flex justify-between items-center w-full p-4 bg-dark-900 rounded-tr-3xl rounded-tl-3xl rounded-br-3xl
                 relative before:content-[''] before:absolute before:bottom-[-4rem] before:left-0 before:h-16 before:w-8 before:rounded-tl-3xl before:bg-dark-700 before:shadow-[0_-1rem_0_0_#131313]`}>
@@ -191,8 +193,8 @@ export function Chat({ gameKey, gameId, game, send }) {
                     }
                 </div>
             </div>
-            <div className="flex flex-col flex-grow overflow-hidden">
-                <div className="flex flex-col bg-dark-700 flex-1 h-full relative rounded-3xl px-4 py-2 z-10 overflow-y-scroll no-scrollbar">
+            <div className="flex flex-col overflow-hidden h-full">
+                <div className="flex flex-col grow flex-1 h-full relative rounded-3xl px-4 py-2 z-10 overflow-y-scroll no-scrollbar">
                     {
                         messages.map((m, i) => 
                             <div key={ i } className={`mb-2 ${name == m.name ? "ml-8 self-end flex flex-col items-end" : "mr-8"}`}>

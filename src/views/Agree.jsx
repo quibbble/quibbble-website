@@ -3,7 +3,7 @@ export function Agree({agreed}) {
       <div className="w-full h-screen flex items-center justify-center">
         <div className="flex flex-col w-full h-screen items-center justify-center opacity-0 animate-fade fill-mode-forwards">
             <div className="m-4 flex flex-col items-center justify-center px-8 py-12 bg-dark-900 rounded-3xl">
-                <h1 className={`max-w-96 text-white mb-6 text-4xl drop-shadow-m font-lobster`}>Welcome to quibbble.com</h1>
+                <h1 className={`max-w-96 text-white mb-6 text-4xl drop-shadow-m font-lobster`}>Welcome to quibbble.com!</h1>
                 <h1 className={`max-w-96 text-white mb-4 text-xl drop-shadow-m`}>Please read and agree to our <a target="_blank" href="/terms-of-service" className="text-yellow underline font-bold">terms of service</a> and <a target="_blank" href="/privacy-policy" className="text-yellow underline font-bold">privacy policy</a> to enter.</h1>
                 <div onClick={() => agreed()} className="group mt-4 cursor-pointer font-bold flex items-center justify-center">
                     <p className="ml-1 text-slate group-hover:text-yellow transition ease-in-out duration-500">agree and enter</p>
@@ -13,6 +13,6 @@ export function Agree({agreed}) {
                 </div>
             </div>
         </div>
-      </div> 
+      </div>
     )
 }

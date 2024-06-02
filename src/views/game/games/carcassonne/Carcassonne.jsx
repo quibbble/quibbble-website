@@ -11,7 +11,9 @@ import { PiPuzzlePieceFill } from "react-icons/pi";
 
 export const Carcassonne = forwardRef((props, ref) => {
 
-    const name = localStorage.getItem("name")
+    let name = localStorage.getItem("name")
+    const split = name.split(":")
+    if (split.length == 2 && split[0] == "quibbble") name = "quibbble"
 
     const { game, send } = props;
 

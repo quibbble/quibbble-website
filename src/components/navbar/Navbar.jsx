@@ -44,11 +44,11 @@ export function Navbar() {
             <Link to={'/'} state={{ from: location.pathname }} className={logo}>quibbble</Link>
             <Nav />
             <a href={"https://status.quibbble.com"} target="_blank" className='flex items-center justify-center'>
-                <span className="relative flex h-3 w-3 mr-1">
+                <span className="relative flex h-3 w-3 mr-2">
                     <span className={`absolute inline-flex h-full w-full rounded-full ${ healthy ? "bg-[#22c55e]" : "animate-ping bg-[#f59e0b]"} opacity-75`}/>
                     { healthy ? <></> : <span className="relative inline-flex rounded-full h-3 w-3 bg-[#f59e0b]"/> }
                 </span>
-                { healthy ? "online" : "offline" }
+                <div className='mb-[0.125rem]'>{ healthy ? "online" : "offline" }</div>
             </a>
         </div>
         <div className='flex md:hidden justify-between w-full'>

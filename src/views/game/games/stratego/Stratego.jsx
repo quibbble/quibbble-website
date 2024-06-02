@@ -4,7 +4,10 @@ import { DraggableUnit, TxtMap } from "./Unit";
 import { DndContext, PointerSensor, useSensors, useSensor } from '@dnd-kit/core';
 
 export const Stratego = forwardRef((props, ref) => {
-    const name = localStorage.getItem("name")
+
+    let name = localStorage.getItem("name")
+    const split = name.split(":")
+    if (split.length == 2 && split[0] == "quibbble") name = "quibbble"
 
     const { game, send } = props;
 

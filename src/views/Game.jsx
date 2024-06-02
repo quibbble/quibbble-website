@@ -24,7 +24,9 @@ const games = {
 
 export function Game() {
 
-    const name = localStorage.getItem("name")
+    let name = localStorage.getItem("name")
+    const split = name.split(":")
+    if (split.length == 2 && split[0] == "quibbble") name = "quibbble"
 
     let { gameKey, gameId } = useParams();
 

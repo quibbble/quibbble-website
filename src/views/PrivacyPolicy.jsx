@@ -5,7 +5,7 @@ export function PrivacyPolicy() {
             <article className="prose">
                 <h1>Privacy Policy of quibbble.com</h1>
 
-                <p>quibbble.com operates the https://quibbble.com website, which provides the SERVICE.</p>
+                <p>quibbble.com operates the https://quibbble.com website, which provides the Service.</p>
 
                 <p>This page is used to inform website visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service, the quibbble.com website.</p>
 

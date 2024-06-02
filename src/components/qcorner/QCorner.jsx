@@ -5,7 +5,9 @@ import { QCornerContext } from "./QCornerProvider";
 
 export function QCorner() {
 
-    const name = localStorage.getItem("name")
+    let name = localStorage.getItem("name")
+    const split = name.split(":")
+    if (split.length == 2 && split[0] == "quibbble") name = "quibbble"
 
     const { theme } = useContext(ThemeContext);
     const { qcorner, send } = useContext(QCornerContext);
@@ -36,7 +38,7 @@ export function QCorner() {
                         showConnections ? 
                             <div className={`left-[-10rem] text-sm w-48 absolute bg-dark-600 px-4 py-2 mt-2 rounded-md z-50 not-italic drop-shadow-md`}>
                                 {
-                                    qcorner?.connection?.names?.map((name, i) => <div key={i} className={`font-bold mt-${ i == 0 ? '0' : '1' }`}>{ name }</div>)
+                                    qcorner?.connection?.names?.map((name, i) => <div key={i} className={`font-bold mt-${ i == 0 ? '0' : '1' } ${ name == "quibbble" ? "text-yellow" : "" }`}>{ name }</div>)
                                 }
                             </div> : <></>
                     }
@@ -49,7 +51,7 @@ export function QCorner() {
                             <div key={ i } className={`mb-2 ${name == m.name ? "ml-8 self-end flex flex-col items-end" : "mr-8"}`}>
                                 {
                                     i == 0 || (i > 0 && qcorner.chat[i-1].name != m.name) ? 
-                                        <div className={`mb-2 text-xs font-bold text-gray w-full ${name == m.name ? "text-right" : "text-left"}`}>
+                                        <div className={`mb-2 text-xs font-bold ${ m.name == "quibbble" ? "text-yellow" : "text-gray" } w-full ${name == m.name ? "text-right" : "text-left"}`}>
                                             { m.name }
                                         </div> : <></>
                                 }
