@@ -52,7 +52,7 @@ export function FAQ() {
                   <Fact 
                     className="opacity-0 animate-fade fill-mode-forwards animation-delay-[425ms]"
                     question={"Don't see your question?"} 
-                    answer={<div>Please reach out to <a className="text-yellow hover:text-white underline transition ease-in-out duration-300" href="mailto:support@quibbble.com">support@quibbble.com</a>. We'll get back to you as soon as possible.</div>} 
+                    answer={<div>Please reach out to <a className="text-yellow hover:text-white underline transition ease-in-out duration-300" href="mailto:hello@quibbble.com">hello@quibbble.com</a>. We'll get back to you as soon as possible.</div>} 
                   />
                 </div>
             </div>
@@ -69,14 +69,14 @@ function Fact({question, answer, className}) {
   return (
     <div onClick={() => setShow(!show)} className={`mt-2 cursor-pointer text-white hover:text-slate transition-colors duration-500 ease-in-out bg-dark-900 p-8 rounded-3xl drop-shadow-m ${className}`}>
       <p className="font-bold flex items-center">{ show ? <BiSolidDownArrow className="text-yellow mr-2" /> : <BiSolidRightArrow className="text-yellow mr-2" /> } { question }</p>
-      <p style={show ? {
+      <div style={show ? {
           maxHeight: "300px",
           transition: "max-height 0.5s ease-in",
         } : {
           overflow: "hidden",
           maxHeight: 0,
           transition: "max-height 0.3s ease-out"
-        }} className={`text-slate overflow-hidden`}>{ answer }</p>
+        }} className={`text-slate overflow-hidden`}>{ answer }</div>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 
 const host = import.meta.env.VITE_QUIBBBLE_HOST
 
@@ -13,6 +14,22 @@ export function useQCorner() {
         connection: {},
         chat: []
     })
+
+    // online connect to qcorner when not in game
+    const location = useLocation()
+    useEffect(() => {
+        if (!(location.pathname == "/" || 
+            location.pathname.includes("/games") || 
+            location.pathname.includes("/community") || 
+            location.pathname.includes("/faq"))) {
+            setReconnecting(true)
+            if (ws.current) ws.current.close()
+            ws.current = null
+            setQCorner(((p) => { return({ ...p, online: false }) }))
+        } else {
+            setReconnecting(false)
+        }
+    }, [location.pathname])
 
     useEffect(() => {
         async function connect() {

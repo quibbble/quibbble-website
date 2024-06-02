@@ -7,14 +7,13 @@ import { FAQ } from './views/FAQ';
 import { GameInfo } from './views/GameInfo';
 import { Game } from './views/Game';
 import { CreateID } from './utils/id';
-import { useQCorner } from './hooks/QCorner';
 import { Error } from './views/Error';
 import { GetActivity } from './services/quibbble';
 import { Agree } from './views/Agree';
 import { TermsOfService } from './views/TermsOfService';
 import { PrivacyPolicy } from './views/PrivacyPolicy';
+import { QCornerProvider } from './components/qcorner/QCornerProvider';
 
-export const QCornerContext = createContext(null);
 export const ThemeContext = createContext(null);
 export const ActivityContext = createContext(null);
 
@@ -31,7 +30,6 @@ export default function App() {
   
   const [theme, setTheme] = useState("yellow")
   const [activity, setActivity] = useState()
-  const [qcorner, send] = useQCorner()
 
   useEffect(() => {
     let f = async () => {
@@ -44,16 +42,13 @@ export default function App() {
   }, [])
 
   return (
-    <QCornerContext.Provider value={{ qcorner: qcorner, send: send }}>
+    <BrowserRouter>
       <ThemeContext.Provider value={{ theme: theme, setTheme: setTheme }}>
         <ActivityContext.Provider value={{ activity: activity }}>
-
-          <BrowserRouter>
+          <QCornerProvider>
             <Routes>
-
               <Route exact path="/terms-of-service" element={ <TermsOfService /> } />
               <Route exact path="/privacy-policy" element={ <PrivacyPolicy /> } />
-
               {
                 agree != "agreed" ? 
                   <Route path="*" element={ <Agree agreed={() => {setAgree("agreed")}} /> } /> :
@@ -68,13 +63,10 @@ export default function App() {
                     <Route path="*" element={ <Navigate to="/" /> } />
                   </>
               }
-                
             </Routes>
-          </BrowserRouter>
-
+          </QCornerProvider>
         </ActivityContext.Provider>
       </ThemeContext.Provider>
-    </QCornerContext.Provider>
-
+    </BrowserRouter>
   )
 }

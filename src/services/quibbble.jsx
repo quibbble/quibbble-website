@@ -54,7 +54,7 @@ export const GetActivity = async () => {
         .catch(error => error.response)
 }
 
-export const Health = async () => {
+export const GetHealth = async () => {
     let config = {
         method: 'GET',
         url: `https://${ host }/health`,

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useContext } from "react"
 import { useLocation } from 'react-router-dom';
-import { QCornerContext, ThemeContext } from "../../App";
+import { ThemeContext } from "../../App";
+import { QCornerContext } from "./QCornerProvider";
 
 export function QCorner() {
 

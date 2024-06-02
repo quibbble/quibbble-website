@@ -29,11 +29,8 @@ export function CreateButton({gameKey, kind}) {
         e.preventDefault()
         const gameId = CreateID()
         let resp = await createGame(gameKey, gameId, teams, variant, kind)
-        if (resp.status == 201) {
-            navigate(`/play/${ gameKey }/${ gameId }`)
-        } else {
-            navigate("/error")
-        }
+        if (resp.status == 201) navigate(`/play/${ gameKey }/${ gameId }`)
+        else navigate("/error")
     }
 
     const handleTeams = e => {

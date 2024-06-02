@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import { TiThMenu } from "react-icons/ti";
 import { IoClose } from "react-icons/io5";
-import { useContext, useState } from 'react';
-import { BiSolidDonateHeart } from "react-icons/bi";
+import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../App';
+import { GetHealth } from '../../services/quibbble';
 
 export function Navbar() {
 
@@ -29,13 +29,26 @@ export function Navbar() {
         cursor-pointer
     `
 
+    const [healthy, setHealthy] = useState(true)
+    useEffect(() => {
+        const f = async () => {
+            const resp = await GetHealth()
+            if (resp.status != 200) setHealthy(false)
+        }
+        f()
+    }, [])
+
     return (
       <>
         <div className='hidden md:flex justify-between items-center w-full drop-shadow-md'>
             <Link to={'/'} state={{ from: location.pathname }} className={logo}>quibbble</Link>
             <Nav />
-            <a href={"https://www.buymeacoffee.com/quibbble"} target="_blank" className='flex items-center justify-center'>
-                donate <BiSolidDonateHeart className='ml-1 text-xl' />
+            <a href={"https://status.quibbble.com"} target="_blank" className='flex items-center justify-center'>
+                <span className="relative flex h-3 w-3 mr-1">
+                    <span className={`absolute inline-flex h-full w-full rounded-full ${ healthy ? "bg-[#22c55e]" : "animate-ping bg-[#f59e0b]"} opacity-75`}/>
+                    { healthy ? <></> : <span className="relative inline-flex rounded-full h-3 w-3 bg-[#f59e0b]"/> }
+                </span>
+                { healthy ? "online" : "offline" }
             </a>
         </div>
         <div className='flex md:hidden justify-between w-full'>
