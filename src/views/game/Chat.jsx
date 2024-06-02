@@ -1,11 +1,15 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { ThemeContext } from "../../App";
+import { gamedata } from "../../data/games";
 
 export function Chat({ gameKey, gameId, game, send }) {
 
     const { theme } = useContext(ThemeContext);
 
     const name = localStorage.getItem("name")
+
+    const [winners, setWinners] = useState([])
+    useEffect(() => { if (game.snapshot && game.snapshot.winners && game.snapshot.winners.length != winners.length) setWinners(game.snapshot.winners) }, [game.snapshot])
 
     const [message, setMessage] = useState("")
     useEffect(() => { setMessage(message.replace(/(\r\n|\n|\r)/gm, ""))}, [message])
@@ -119,7 +123,7 @@ export function Chat({ gameKey, gameId, game, send }) {
     }, [game.connection])
 
     useEffect(() => {
-        localStorage.setItem(`${ gameKey }-${ gameId }`, team)
+        if (team != undefined) localStorage.setItem(`${ gameKey }-${ gameId }`, team)
         if (team) {
             let msg = {
                 name: "qbot",
@@ -130,9 +134,11 @@ export function Chat({ gameKey, gameId, game, send }) {
     }, [team])
 
     useEffect(() => {
-        if (kind == "ai") {
-            if (team && turn != team) sendAi()
-        } else if (kind == "local") {
+        if (kind == "ai" && team && game.snapshot.turn != team && game.snapshot.winners.length == 0) sendAi()
+    }, [kind, team, winners, game.snapshot])
+
+    useEffect(() => {
+        if (kind == "local") {
             if (team && turn != team) {
                 sendJoin("") // clear the team to prevent teams from seeing each others game states
             } else if (!team) {
@@ -148,22 +154,22 @@ export function Chat({ gameKey, gameId, game, send }) {
     }, [kind, team, turn])
 
     useEffect(() => {
-        setTimeout(() => { // kind of a hack to show this message last on page reload ang game is over
-            if (game.snapshot && game.snapshot.winners && game.snapshot.winners.length > 0) {
-                let msgs = [
-                    {
-                        name: "qbot",
-                        message: <div className="text-yellow">{ game.snapshot.winners.map((team, i) => <><span className={`text-${team}`}>{ team }</span>{ i == game.snapshot.winners.length - 1 ? "" : "," } </>) } { game.snapshot.winners.length > 1 ? "all tied!" : "has won the game!" }</div>
-                    },
-                    {
-                        name: "qbot",
-                        message: <div className="text-yellow cursor-pointer" onClick={() => { sendReset() }}>Click on this message to reset and play again!</div>
-                    }
-                ]
-                setMessages(m => { return m.concat(msgs)})
-            }
-        }, 50)
-    }, [game.snapshot])
+        if (winners.length > 0) {
+            setTimeout(() => { // kind of a hack to show this message last on page reload ang game is over
+                    let msgs = [
+                        {
+                            name: "qbot",
+                            message: <div className="text-yellow">{ winners.map((team, i) => <><span className={`text-${team}`}>{ team }</span>{ i == winners.length - 1 ? "" : "," } </>) } { winners.length > 1 ? "tied!" : "has won the game!" }</div>
+                        },
+                        {
+                            name: "qbot",
+                            message: <div className="text-yellow cursor-pointer" onClick={() => { sendReset() }}>Click on this message to reset and play again!</div>
+                        }
+                    ]
+                    setMessages(m => { return m.concat(msgs)})
+            }, 50)
+        }
+    }, [winners])
 
     return (
         <div className='bg-dark-900 h-64 md:h-full md:w-96 rounded-3xl flex flex-col'>
@@ -224,11 +230,15 @@ export function Chat({ gameKey, gameId, game, send }) {
                                         },
                                         {
                                             name: "qbot",
+                                            message: <p><span className="text-yellow">/learn</span> provides information on how to play the game.</p>
+                                        },
+                                        {
+                                            name: "qbot",
                                             message: <p><span className="text-yellow">/join</span> <span className="text-yellow opacity-75">team</span> may be used to join a different team.</p>
                                         },
                                         {
                                             name: "qbot",
-                                            message: <p><span className="text-yellow">/undo</span> may be used to undo your last action.</p>
+                                            message: <p><span className="text-yellow">/undo</span> may be used to undo the last action.</p>
                                         },
                                         {
                                             name: "qbot",
@@ -241,7 +251,13 @@ export function Chat({ gameKey, gameId, game, send }) {
                                     ]
                                     setMessages((m) => { return m.concat(msgs) })
                                 } 
-                                else if (message == "/undo") sendUndo()
+                                else if (message == "/learn") {
+                                    let msg = {
+                                        name: "qbot",
+                                        message: gamedata[gameKey].learn
+                                    }
+                                    setMessages((m) => { return m.concat([msg]) })
+                                } else if (message == "/undo") sendUndo()
                                 else if (message == "/reset") sendReset()
                                 else if (message == "/ai") sendAi()
                                 else if (message.split(" ")[0] == "/join") {
@@ -252,7 +268,7 @@ export function Chat({ gameKey, gameId, game, send }) {
                             }
                             setMessage("")
                         }}
-                    } maxLength="120" className="resize-none bg-dark-700 rounded-2xl z-10 grow w-full m-4 p-2 focus:outline focus:outline-2 outline-yellow text-slate placeholder-gray " placeholder="type to chat..."/>
+                    } maxLength="120" className={`resize-none bg-dark-700 rounded-2xl z-10 grow w-full m-4 p-2 focus:outline focus:outline-2 outline-${ theme } text-slate placeholder-gray`} placeholder="type to chat..."/>
                 </div>
             </div>
         </div>

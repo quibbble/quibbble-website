@@ -10,12 +10,18 @@ import { CreateID } from './utils/id';
 import { useQCorner } from './hooks/QCorner';
 import { Error } from './views/Error';
 import { GetActivity } from './services/quibbble';
+import { Agree } from './views/Agree';
+import { TermsOfService } from './views/TermsOfService';
+import { PrivacyPolicy } from './views/PrivacyPolicy';
 
 export const QCornerContext = createContext(null);
 export const ThemeContext = createContext(null);
 export const ActivityContext = createContext(null);
 
 export default function App() {
+
+  const [agree, setAgree] = useState(localStorage.getItem("agree"))
+  useEffect(() => { if (agree == "agreed") localStorage.setItem("agree", "agreed") }, [agree])
 
   let name = localStorage.getItem("name")
   if (!name) {
@@ -44,14 +50,25 @@ export default function App() {
 
           <BrowserRouter>
             <Routes>
-                <Route exact path="/games" element={ <Games /> } />
-                <Route exact path="/games/:gameKey" element={ <GameInfo /> } />
-                <Route exact path="/play/:gameKey/:gameId" element={ <Game /> } />
-                <Route exact path="/community" element={ <Community /> } />
-                <Route exact path="/faq" element={ <FAQ /> } />
-                <Route exact path="/error" element={ <Error /> } />
-                <Route exact path="/" element={ <Home /> } />
-                <Route path="*" element={ <Navigate to="/" /> } />
+
+              <Route exact path="/terms-of-service" element={ <TermsOfService /> } />
+              <Route exact path="/privacy-policy" element={ <PrivacyPolicy /> } />
+
+              {
+                agree != "agreed" ? 
+                  <Route path="*" element={ <Agree agreed={() => {setAgree("agreed")}} /> } /> :
+                  <>
+                    <Route exact path="/games" element={ <Games /> } />
+                    <Route exact path="/games/:gameKey" element={ <GameInfo /> } />
+                    <Route exact path="/play/:gameKey/:gameId" element={ <Game /> } />
+                    <Route exact path="/community" element={ <Community /> } />
+                    <Route exact path="/faq" element={ <FAQ /> } />
+                    <Route exact path="/error" element={ <Error /> } />
+                    <Route exact path="/" element={ <Home /> } />
+                    <Route path="*" element={ <Navigate to="/" /> } />
+                  </>
+              }
+                
             </Routes>
           </BrowserRouter>
 

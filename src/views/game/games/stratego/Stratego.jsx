@@ -58,9 +58,11 @@ export const Stratego = forwardRef((props, ref) => {
         let over = e.over.data.current
         let active = e.active.data.current
 
-        if (!started) switchUnits(active.row, active.col, over.row, over.col)
-        else moveUnit(active.row, active.col, over.row, over.col)
-    }, [team, started, turn, winners])
+        let a = board[active.row][active.col]
+        let b = board[over.row][over.col]
+        if (started || (a && !b) || (a && b && a.team != b.team)) moveUnit(active.row, active.col, over.row, over.col)
+        else switchUnits(active.row, active.col, over.row, over.col)
+    }, [team, started, turn, winners, board])
 
     // board resize logic
     const [tileSize, setTileSize] = useState(0);
@@ -114,17 +116,6 @@ export const Stratego = forwardRef((props, ref) => {
                             </div>) : null
                     }
                 </div>
-
-                {
-                    teams && !started ? 
-                        <div className="w-full flex justify-center items-center">
-                            {
-                                teams.map(t => <button key={ t } className={ `text-sm font-bold px-2 py-1 rounded-md ${ team == t ? `bg-${ t } text-white` : `text-${ t }` }  ${team === t ? "cursor-pointer" : "cursor-default" }` } onClick={ () => team == t ? toggleReady() : null }>
-                                    { ready[t] ? `${ t } ready!` : team == t ? "click when ready" : `${ t } not ready` }
-                                </button>)
-                            }
-                        </div> : <></>
-                }
             </div>
         </DndContext>
     )

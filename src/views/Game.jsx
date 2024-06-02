@@ -24,6 +24,8 @@ const games = {
 
 export function Game() {
 
+    const name = localStorage.getItem("name")
+
     let { gameKey, gameId } = useParams();
 
     const { theme, setTheme } = useContext(ThemeContext);
@@ -46,6 +48,9 @@ export function Game() {
         gameId: gameId
     })
 
+    const [team, setTeam] = useState("")
+    useEffect(() => { if (game.connection) setTeam(game.connection[name]) }, [game.connection])
+
     const ref = createRef();
 
     return (
@@ -54,7 +59,7 @@ export function Game() {
                 <div className='flex flex-col md:flex-row w-full md:grow m-2 lg:m-4 opacity-0 animate-fade fill-mode-forwards'>
                     <div ref={ ref } className='relative bg-dark-900 w-full grow md:h-full rounded-3xl mb-2 md:mb-0 mr-0 md:mr-2 lg:mr-4 p-4 mg:p-8'>
                         <div className='absolute top-4 md:top-auto md:bottom-8 left-4 md:left-6 z-50'>
-                            <Link to={'/'} state={{ from: location.pathname }} className={`font-lobster text-slate text-2xl lg:text-3xl cursor-pointer`}>quibbble</Link>
+                            <Link to={'/'} state={{ from: location.pathname }} className={`font-lobster ${ team ? `text-${ team }` : "text-slate" } text-2xl lg:text-3xl cursor-pointer`}>quibbble</Link>
                         </div>
                         <div className='absolute top-4 md:top-auto md:bottom-8 right-4 md:right-6 '>
                             <Turns teams={ game.snapshot.teams ? game.snapshot.teams : [] } turn={ game.snapshot.turn ? game.snapshot.turn : "" } winners={ game.snapshot.winners ? game.snapshot.winners : [] } />
@@ -98,7 +103,7 @@ function Turns({ teams, turn, winners }) {
             {
                 teams.map((team, i) => 
                     <div key={ i } className={`${ i == teams.length-1 ? "" : "mr-1" } flex items-center`}>
-                        <div className={`${ (winners.length > 0 && winners.includes(team)) || (winners.length == 0 && team == turn) ? "opacity-100" : "opacity-20" } bg-${ team } w-5 lg:w-7 h-5 lg:h-7 rounded-full flex items-center justify-center`}>
+                        <div className={`${ (winners.length > 0 && winners.includes(team)) || (winners.length == 0 && team == turn) ? "opacity-100 animate-bounce" : "opacity-20" } bg-${ team } w-5 lg:w-7 h-5 lg:h-7 rounded-full flex items-center justify-center`}>
                             {
                                 winners.includes(team) ? 
                                     <FaCrown className='lg:text-xl fill-white' /> : <></>

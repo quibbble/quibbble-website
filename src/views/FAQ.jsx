@@ -19,7 +19,7 @@ export function FAQ() {
                     <QCorner />
                 </span>
                 <div className="md:ml-4 w-full flex flex-col">
-                  <div className="flex flex-wrap-reverse justify-between items-center w-full bg-dark-900 p-8 rounded-3xl opacity-0 animate-fade fill-mode-forwards drop-shadow-md">
+                  <div className="flex flex-wrap-reverse justify-between items-center w-full bg-dark-900 p-8 rounded-3xl opacity-0 animate-fade fill-mode-forwards duration-500 drop-shadow-md">
                     <div className={`font-lobster text-yellow text-4xl`}>
                       FAQ
                     </div>
@@ -37,7 +37,7 @@ export function FAQ() {
                   <Fact 
                     className="opacity-0 animate-fade fill-mode-forwards animation-delay-[300ms]"
                     question={"Can everyone play on one device?"} 
-                    answer={<p>Yes! When you create a game be sure to create a <span className="italic">local</span> game. To play, continue to pass the device around when it is the next player's turn.</p>} 
+                    answer={<p>Yes! Just create a <span className="italic">local</span> game and then pass the device around on each turn.</p>} 
                   />
                   <Fact 
                     className="opacity-0 animate-fade fill-mode-forwards animation-delay-[350ms]"
@@ -67,12 +67,16 @@ function Fact({question, answer, className}) {
   const [show, setShow] = useState(false)
 
   return (
-    <div onClick={() => setShow(!show)} className={`mt-2 cursor-pointer text-white bg-dark-900 p-8 rounded-3xl drop-shadow-m ${className}`}>
+    <div onClick={() => setShow(!show)} className={`mt-2 cursor-pointer text-white hover:text-slate transition-colors duration-500 ease-in-out bg-dark-900 p-8 rounded-3xl drop-shadow-m ${className}`}>
       <p className="font-bold flex items-center">{ show ? <BiSolidDownArrow className="text-yellow mr-2" /> : <BiSolidRightArrow className="text-yellow mr-2" /> } { question }</p>
-      {
-        show ? 
-          <p className="mt-2 text-slate">{ answer }</p> : <></>
-      }
+      <p style={show ? {
+          maxHeight: "300px",
+          transition: "max-height 0.5s ease-in",
+        } : {
+          overflow: "hidden",
+          maxHeight: 0,
+          transition: "max-height 0.3s ease-out"
+        }} className={`text-slate overflow-hidden`}>{ answer }</p>
     </div>
   )
 }

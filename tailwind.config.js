@@ -27,7 +27,7 @@ export default {
       'yellow': '#FFCB31',
       'red': '#FF3131',
       'orange': '#FF5631',
-      'turquoise': '#31FFA8',
+      'teal': '#31FFA8',
       'indigo': '#6731FF',
       'sky': '#31C1FF',
       'blue': '#545bff',
@@ -44,6 +44,7 @@ export default {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require('@tailwindcss/typography'),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(
         { "animation-delay": (value) => {return { "animation-delay": value } } },
@@ -60,7 +61,7 @@ export default {
     "hover:text-yellow",
     "hover:text-red",
     "hover:text-orange",
-    "hover:text-turquoise",
+    "hover:text-teal",
     "hover:text-indigo",
     "hover:text-sky",
     "hover:text-blue",
@@ -71,7 +72,7 @@ export default {
     "hover:bg-yellow",
     "hover:bg-red",
     "hover:bg-orange",
-    "hover:bg-turquoise",
+    "hover:bg-teal",
     "hover:bg-indigo",
     "hover:bg-sky",
     "hover:bg-blue",
@@ -84,7 +85,7 @@ export default {
     "group-hover:fill-yellow",
     "group-hover:fill-red",
     "group-hover:fill-orange",
-    "group-hover:fill-turquoise",
+    "group-hover:fill-teal",
     "group-hover:fill-indigo",
     "group-hover:fill-sky",
     "group-hover:fill-blue",
