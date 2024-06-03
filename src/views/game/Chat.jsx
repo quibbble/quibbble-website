@@ -165,7 +165,7 @@ export function Chat({ gameKey, gameId, game, send }) {
                         },
                         {
                             name: "qbot",
-                            message: <div className="text-yellow cursor-pointer" onClick={() => { sendReset() }}>Click on this message to reset and play again!</div>
+                            message: <div className="cursor-pointer text-yellow" onClick={() => { sendReset() }}>Click on this message to reset and play again!</div>
                         }
                     ]
                     setMessages(m => { return m.concat(msgs)})
@@ -174,14 +174,14 @@ export function Chat({ gameKey, gameId, game, send }) {
     }, [winners])
 
     return (
-        <div className='bg-dark-700 h-64 md:h-full md:w-96 rounded-3xl flex flex-col'>
+        <div className='flex flex-col h-64 bg-dark-700 md:h-full md:w-96 rounded-3xl'>
             <div className={`
                 flex justify-between items-center w-full p-4 bg-dark-900 rounded-tr-3xl rounded-tl-3xl rounded-br-3xl
                 relative before:content-[''] before:absolute before:bottom-[-4rem] before:left-0 before:h-16 before:w-8 before:rounded-tl-3xl before:bg-dark-700 before:shadow-[0_-1rem_0_0_#131313]`}>
-                <h1 className="text-gray font-bold text-xl font-lobster">
+                <h1 className="text-xl font-bold text-gray font-lobster">
                     <span className={`text-${ theme }`}>Chat</span>
                 </h1>
-                <div onClick={() => setShowConnections(!showConnections)} className="text-gray text-xs italic relative cursor-pointer hover:underline select-none">
+                <div onClick={() => setShowConnections(!showConnections)} className="relative text-xs italic cursor-pointer select-none text-gray hover:underline">
                     {game && game.connection ? Object.keys(game.connection).length : 0} online
                     {
                         showConnections ? 
@@ -193,8 +193,8 @@ export function Chat({ gameKey, gameId, game, send }) {
                     }
                 </div>
             </div>
-            <div className="flex flex-col overflow-hidden h-full">
-                <div className="flex flex-col grow flex-1 h-full relative rounded-3xl px-4 py-2 z-10 overflow-y-scroll no-scrollbar">
+            <div className="flex flex-col h-full overflow-hidden">
+                <div className="relative z-10 flex flex-col flex-1 h-full px-4 py-2 overflow-y-scroll grow rounded-3xl no-scrollbar">
                     {
                         messages.map((m, i) => 
                             <div key={ i } className={`mb-2 ${name == m.name ? "ml-8 self-end flex flex-col items-end" : "mr-8"}`}>
@@ -236,7 +236,7 @@ export function Chat({ gameKey, gameId, game, send }) {
                                         },
                                         {
                                             name: "qbot",
-                                            message: <p><span className="text-yellow">/join</span> <span className="text-yellow opacity-75">team</span> may be used to join a different team.</p>
+                                            message: <p><span className="text-yellow">/join</span> <span className="opacity-75 text-yellow">team</span> may be used to join a different team.</p>
                                         },
                                         {
                                             name: "qbot",
@@ -284,17 +284,17 @@ function CopyText({ text }) {
     }, [copy]);
 
     return (
-        <div className="relative text-yellow cursor-pointer underline" onClick={() => {
+        <div className="relative underline cursor-pointer text-yellow" onClick={() => {
             setCopy(true);
             navigator.clipboard.writeText(text)
          }}><p>{ text }</p>
             {
                 copy ?
-                    <div className="absolute mt-2 w-6/12 flex justify-center">
+                    <div className="absolute flex justify-center w-6/12 mt-2">
                         <div className="absolute top-[-12px] w-6 overflow-hidden inline-block">
-                            <div className=" h-4 w-4 bg-dark-900 rotate-45 transform origin-bottom-left" />
+                            <div className="w-4 h-4 origin-bottom-left transform rotate-45 bg-dark-900" />
                         </div>
-                        <div className="text-slate font-bold text-xs text-center bg-dark-900 p-2 rounded-md">copied!</div>
+                        <div className="p-2 text-xs font-bold text-center rounded-md text-slate bg-dark-900">copied!</div>
                     </div> : <></>
             }
          </div>

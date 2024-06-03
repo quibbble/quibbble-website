@@ -58,11 +58,11 @@ export const Tsuro = forwardRef((props, ref) => {
 
     return (
         <DndContext onDragEnd={ handleDragEnd } sensors={ sensors }>
-            <div className="h-full flex flex-col justify-center items-center grow">
+            <div className="flex flex-col items-center justify-center h-full grow">
                 <div className="box-border flex flex-col mb-8" style={{ width: `${ tileSize*6 }px`, height: `${ tileSize*6 }px` }}>
                     { 
                         game.snapshot && game.snapshot.details  ? game.snapshot.details.board.map((row, rIdx) => 
-                            <div key={ rIdx } className="w-full h-full flex">
+                            <div key={ rIdx } className="flex w-full h-full">
                                 {
                                     row.map((el, cIdx) => 
                                         <DropSpace key={ cIdx } row={ rIdx } col={ cIdx }>
@@ -79,7 +79,7 @@ export const Tsuro = forwardRef((props, ref) => {
                     }
                 </div>
 
-                <div className="w-full flex items-center justify-center" style={{ height: `${tileSize}px` }}> 
+                <div className="flex items-center justify-center w-full" style={{ height: `${tileSize}px` }}> 
                     {
                         [0, 1, 2].map((_, idx) => 
                             <div key={ idx } className={`box-border border border-slate ${ idx != 2 ? "mr-4 md:mr-8" : "" }`} style={{ width: `${ tileSize }px`, height: `${ tileSize }px` }}>

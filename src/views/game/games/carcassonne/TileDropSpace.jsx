@@ -12,7 +12,7 @@ export default function TileDropSpace({ x, y, team, children }) {
     });
 
     return (
-        <div ref={ setNodeRef } className="box-border border border-slate h-full">
+        <div ref={ setNodeRef } className="box-border h-full border border-slate">
             <div className={ `${ isOver && active.id == "tile" ? `bg-${ team }` : "bg-slate" } ${ isOver && active.id == "tile" ? "opacity-75" : "opacity-10" } h-full` }>
                 { children }
             </div>

@@ -44,7 +44,7 @@ export default {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('@tailwindcss/typography'),
+    require("@tailwindcss/typography"),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(
         { "animation-delay": (value) => {return { "animation-delay": value } } },

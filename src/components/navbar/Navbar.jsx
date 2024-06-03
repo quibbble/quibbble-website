@@ -13,22 +13,6 @@ export function Navbar() {
 
     const path = window.location.pathname
 
-    const logo = `
-        mr-8
-        font-lobster 
-        text-dark-900 
-        text-3xl
-        cursor-pointer
-    `
-    const auth = `
-        text-lg hover:font-bold hover:tracking-tight
-        cursor-pointer
-    `
-    const authMatch = `
-        text-lg font-bold tracking-tight
-        cursor-pointer
-    `
-
     const [healthy, setHealthy] = useState(true)
     useEffect(() => {
         const f = async () => {
@@ -40,21 +24,21 @@ export function Navbar() {
 
     return (
       <>
-        <div className='hidden md:flex justify-between items-center w-full drop-shadow-md'>
-            <Link to={'/'} state={{ from: location.pathname }} className={logo}>quibbble</Link>
+        <div className='items-center justify-between hidden w-full md:flex drop-shadow-md'>
+            <Link to={'/'} state={{ from: location.pathname }} className="mr-8 text-3xl cursor-pointer font-lobster text-dark-900">quibbble</Link>
             <Nav />
             <a href={"https://status.quibbble.com"} target="_blank" className='flex items-center justify-center'>
-                <span className="relative flex h-3 w-3 mr-2">
+                <span className="relative flex w-3 h-3 mr-2">
                     <span className={`absolute inline-flex h-full w-full rounded-full ${ healthy ? "bg-[#22c55e]" : "animate-ping bg-[#f59e0b]"} opacity-75`}/>
                     { healthy ? <></> : <span className="relative inline-flex rounded-full h-3 w-3 bg-[#f59e0b]"/> }
                 </span>
                 <div className='mb-[0.125rem]'>{ healthy ? "online" : "offline" }</div>
             </a>
         </div>
-        <div className='flex md:hidden justify-between w-full'>
+        <div className='flex justify-between w-full md:hidden'>
             {
                 displayMobile ? 
-                    <div className='absolute flex flex-col items-center justify-center w-full h-full z-50 top-0 left-0 bg-dark-900'>
+                    <div className='absolute top-0 left-0 z-50 flex flex-col items-center justify-center w-full h-full bg-dark-900'>
                         <div className={`absolute mx-8 my-8 cursor-pointer top-0 right-0 text-dark-900 bg-${theme} rounded-full p-2 text-xl`} onClick={() => setDisplayMobile(false)}>
                             <IoClose />
                         </div>
@@ -67,7 +51,7 @@ export function Navbar() {
                         </div>
                     </div> : <></>
             }
-            <Link to={{pathname: '/', state: { from: location.pathname }}} className={logo}>quibbble</Link>
+            <Link to={{pathname: '/', state: { from: location.pathname }}} className="mr-8 text-3xl cursor-pointer font-lobster text-dark-900">quibbble</Link>
             <NavMobile open={() => setDisplayMobile(true)} />
         </div>
       </>
@@ -122,7 +106,7 @@ function NavMobile({ open }) {
     const { theme } = useContext(ThemeContext);
 
     return (
-        <div className='bg-dark-900 rounded-full p-2 flex items-center justify-center cursor-pointer drop-shadow-md' onClick={() => open()}>
+        <div className='flex items-center justify-center p-2 rounded-full cursor-pointer bg-dark-900 drop-shadow-md' onClick={() => open()}>
             <TiThMenu className={`fill-${theme} text-xl`} />
         </div>
     )

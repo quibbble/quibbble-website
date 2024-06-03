@@ -39,8 +39,8 @@ export const TileViewer = () => {
     
     return  <>
                 <DndContext autoScroll={ false } onDragEnd={ handleDragEnd } sensors={ sensors }>
-                    <div className="w-full h-screen flex flex-col items-center justify-center">
-                        <div className="w-64 h-64 box-border border border-slate mb-12">
+                    <div className="flex flex-col items-center justify-center w-full h-screen">
+                        <div className="box-border w-64 h-64 mb-12 border border-slate">
                             <Tile x={ 1 } y={ 1 } tile={ tile } tokenDroppable={ tokenDroppable } token={ token } team={ RED }  />
                         </div>
                         <DraggableToken id={1} size={"12px"} team={"red"} />

@@ -87,9 +87,9 @@ export const Stratego = forwardRef((props, ref) => {
 
     return (
         <DndContext onDragEnd={ handleDragEnd } sensors={ sensors }>
-            <div className="h-full flex flex-col justify-center items-center grow">
+            <div className="flex flex-col items-center justify-center h-full grow">
                 {
-                    started ? <div className="pb-2 text-slate text-xs md:text-sm font-light italic text-right w-full flex items-center justify-center">
+                    started ? <div className="flex items-center justify-center w-full pb-2 text-xs italic font-light text-right text-slate md:text-sm">
                                 <p className={ !(battle && battle.attacking_unit && battle.attacked_unit && justBattled) ? "opacity-0" : "" }>
                                     {
                                         battle && battle.attacking_unit && battle.attacked_unit ? <span>
@@ -103,7 +103,7 @@ export const Stratego = forwardRef((props, ref) => {
                 <div className="box-border flex flex-col mb-2" style={{ width: `${ tileSize*(variant === "quick_battle" ? 8 : 10) }px`, height: `${ tileSize*(variant === "quick_battle" ? 8 : 10) }px` }}>
                     { 
                         board ? board.map((row, rIdx) => 
-                            <div key={ rIdx } className="w-full h-full flex">
+                            <div key={ rIdx } className="flex w-full h-full">
                                 {
                                     row.map((el, cIdx) => 
                                         <DropSpace key={ cIdx } row={ rIdx } col={ cIdx } team={ history.length > 0 ? history[history.length-1].team : "" } justMoved={ history.length > 0 && history[history.length-1].type === "move" && history[history.length-1].details.unit_row == rIdx && history[history.length-1].details.unit_col == cIdx }>

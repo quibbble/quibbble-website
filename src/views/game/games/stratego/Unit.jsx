@@ -65,7 +65,7 @@ export const Unit = forwardRef(({ team, type, turn, selectedTeam, started, winne
     return (
         <div ref={ ref } { ...props } className="w-full h-full">
             <div className={ `relative w-full h-full flex items-center justify-center italic text-xs md:text-sm text-[#ebebeb] ${bg} ${cursor}` }>
-                <div className="absolute w-full h-full flex items-start justify-start p-1">{ text }</div>
+                <div className="absolute flex items-start justify-start w-full h-full p-1">{ text }</div>
                 <div className="w-[70%] h-[70%] flex items-center justify-center fill-[#ebebeb]">{ svg }</div>
             </div>
         </div>

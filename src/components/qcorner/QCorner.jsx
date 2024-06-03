@@ -32,7 +32,7 @@ export function QCorner() {
                 <h1 className={`text-${theme} font-bold text-xl font-lobster`}>
                     Q-Corner
                 </h1>
-                <div onClick={() => setShowConnections(!showConnections)} className="text-gray text-xs italic relative cursor-pointer hover:underline select-none">
+                <div onClick={() => setShowConnections(!showConnections)} className="relative text-xs italic cursor-pointer select-none text-gray hover:underline">
                     {qcorner && qcorner.connection.names ? qcorner.connection.names.length : 0} online
                     {
                         showConnections ? 
@@ -44,8 +44,8 @@ export function QCorner() {
                     }
                 </div>
             </div>
-            <div className="flex flex-col overflow-hidden h-full">
-                <div className="flex flex-col grow flex-1 h-full relative rounded-3xl px-4 py-2 z-10 overflow-y-scroll no-scrollbar">
+            <div className="flex flex-col h-full overflow-hidden">
+                <div className="relative z-10 flex flex-col flex-1 h-full px-4 py-2 overflow-y-scroll grow rounded-3xl no-scrollbar">
                     {
                         qcorner.chat.map((m, i) => 
                             <div key={ i } className={`mb-2 ${name == m.name ? "ml-8 self-end flex flex-col items-end" : "mr-8"}`}>

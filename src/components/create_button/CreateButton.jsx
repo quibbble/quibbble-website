@@ -50,11 +50,11 @@ export function CreateButton({gameKey, kind}) {
     }
 
     return (
-        <div onClick={ handlePlay } className="group flex relative cursor-pointer">
-            <div className="pointer-events-none absolute text-gray p-8 flex flex-col items-center z-50 h-full">
+        <div onClick={ handlePlay } className="relative flex cursor-pointer group">
+            <div className="absolute z-50 flex flex-col items-center h-full p-8 pointer-events-none text-gray">
                 <h1 className={`font-lobster text-4xl text-${gamedata[gameKey].color}`}>{kind.charAt(0).toUpperCase() + kind.slice(1)}</h1>
                 <p className='mt-4 grow'>{kinds[kind].description}</p>
-                <div className='self-start flex'>
+                <div className='flex self-start'>
                     <div className={`self-end flex text-sm pointer-events-auto cursor-pointer`}>
                         <div onClick={ handleTeams }>
                             <div className={`flex items-center p-2 rounded-xl hover:outline outline-2 outline-${gamedata[gameKey].color} transition ease-in-out duration-500 bg-${gamedata[gameKey].color} hover:bg-dark-900 text-dark-900 hover:text-${gamedata[gameKey].color}`}>{teams} <BsPersonFill className='text-xl' /></div>

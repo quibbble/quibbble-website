@@ -46,11 +46,11 @@ export const Connect4 = forwardRef((props, ref) => {
     }, [handleResize]);
 
     return (
-        <div className="w-full h-full flex flex-col justify-center items-center grow">
+        <div className="flex flex-col items-center justify-center w-full h-full grow">
             <div className="bg-[#418dff] flex flex-col justify-center rounded-3xl overflow-hidden bg-slate-200" style={{width: `${width}px`, height: `${height}px`}}>
             {
                 board.map((row, rIdx) =>
-                    <div key={rIdx} className="w-full flex justify-center" style={{height: `${tileSize}px`}}>
+                    <div key={rIdx} className="flex justify-center w-full" style={{height: `${tileSize}px`}}>
                         {
                             row.map((token, cIdx) =>
                             <div key={`${rIdx},${cIdx}`} className="flex items-center justify-center cursor-pointer" style={{width: `${tileSize}px`, height: `${tileSize}px`}} onClick={() => place(cIdx)}>

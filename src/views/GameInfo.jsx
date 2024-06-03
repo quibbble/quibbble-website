@@ -21,13 +21,13 @@ export function GameInfo() {
             <div className="flex flex-col items-center w-full max-w-6xl">
                 <Navbar />
                 <div className="flex flex-col items-center w-full">
-                    <div className="flex mt-4 md:mt-8 w-full">
+                    <div className="flex w-full mt-4 md:mt-8">
                         <span className="hidden lg:flex"> 
                             <QCorner />
                         </span>
-                        <div className="md:ml-4 w-full flex flex-col">
+                        <div className="flex flex-col w-full md:ml-4">
                             <Banner game={ gameKey } />
-                            <div className="mt-2 md:mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div className="grid grid-cols-1 gap-3 mt-2 md:mt-4 sm:grid-cols-3">
                                 <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[100ms]">
                                     <CreateButton gameKey={gameKey} kind={'ai'} />
                                 </span>
@@ -57,14 +57,14 @@ function Banner({ game }) {
     const { activity } = useContext(ActivityContext);
 
     return (
-        <div className="flex flex-wrap-reverse justify-between items-center w-full bg-dark-900 p-8 rounded-3xl opacity-0 animate-fade fill-mode-forwards drop-shadow-md">
-            <div className="flex md:flex-col text-xs md:text-sm text-gray">
-                <p className="mr-2 mb-4 md:mb-0"><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_game_count[game] }</span> Live Games</p>
+        <div className="flex flex-wrap-reverse items-center justify-between w-full p-8 opacity-0 bg-dark-900 rounded-3xl animate-fade fill-mode-forwards drop-shadow-md">
+            <div className="flex text-xs md:flex-col md:text-sm text-gray">
+                <p className="mb-4 mr-2 md:mb-0"><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_game_count[game] }</span> Live Games</p>
                 <p><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_player_count[game] }</span> Active Players</p>
             </div>
             <div className="flex text-gray">
                 <p className="flex items-center text-xs md:text-sm">{ gamedata[game].minTeams == gamedata[game].maxTeams ? `${gamedata[game].minTeams }` : `${gamedata[game].minTeams }-${ gamedata[game].maxTeams}` } <BsPersonFill className="ml-1 text-xl" /></p>
-                <p className="flex items-center m-4 md:mx-8 md:my-0 text-xs md:text-sm">{ gamedata[game].minTime }-{ gamedata[game].maxTime } <BiTimeFive className="ml-1 text-xl" /></p>
+                <p className="flex items-center m-4 text-xs md:mx-8 md:my-0 md:text-sm">{ gamedata[game].minTime }-{ gamedata[game].maxTime } <BiTimeFive className="ml-1 text-xl" /></p>
                 <p className="flex items-center text-xs md:text-sm">{complexity[gamedata[game].complexity]} <FaDumbbell className="ml-1 text-xl" /></p>
             </div>
             <div className={`font-lobster text-${gamedata[game].color} text-4xl`}>

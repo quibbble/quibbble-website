@@ -11,8 +11,8 @@ export function GameButton({game}) {
     const { activity } = useContext(ActivityContext);
 
     return (
-        <Link className="group flex relative" to={`/games/${game}`} state={{ from: location.pathname }} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
-            <div className="absolute text-gray p-4 md:p-6 flex flex-col z-10">
+        <Link className="relative flex group" to={`/games/${game}`} state={{ from: location.pathname }} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
+            <div className="absolute z-10 flex flex-col p-4 text-gray md:p-6">
                 <p className={`font-lobster text-base md:text-xl text-${gamedata[game].color}`}>{game.charAt(0).toUpperCase() + game.slice(1)}</p>
                 <div className="mt-6 text-xs md:text-sm">
                     <p><span className={`font-bold text-${gamedata[game].color}`}>{ activity?.live_game_count[game] }</span> Live Games</p>

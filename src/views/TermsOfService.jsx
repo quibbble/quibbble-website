@@ -1,6 +1,6 @@
 export function TermsOfService() {
     return (
-        <div className="w-full flex items-center justify-center m-12">
+        <div className="flex items-center justify-center w-full m-12">
             <article className="prose">
                 <h1>Website Terms and Conditions of Use</h1>
 

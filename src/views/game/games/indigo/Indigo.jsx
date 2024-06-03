@@ -72,12 +72,12 @@ export const Indigo = forwardRef((props, ref) => {
 
     return (
         <DndContext onDragEnd={ handleDragEnd } sensors={ sensors }>
-            <div className="h-full flex flex-col justify-center items-center grow">
+            <div className="flex flex-col items-center justify-center h-full grow">
                 <div className="" style={{ width: `${ tileSize*9 }px`, height: `${ tileSize*9*.975 }px` }}>
                     <div className={`box-border flex flex-col`} style={{ width: `${ tileSize*9 }px`, height: `${ tileSize*9*0.84 }px` }}>
                         {
                             board && board.tiles ? board.tiles.map((row, rIdx) => 
-                                <div key={ rIdx } className="w-full h-full flex items-center justify-center">
+                                <div key={ rIdx } className="flex items-center justify-center w-full h-full">
                                     {
                                         row.map((el, cIdx) => 
                                                 <div key={ rIdx + "," + cIdx } className="box-border" style={{ width: `${tileSize}px`, height: `${tileSize*1.1546}px`, marginBottom: `${tileSize*-1}px`, marginRight: `${tileSize*-0.024}px`}}>
@@ -97,7 +97,7 @@ export const Indigo = forwardRef((props, ref) => {
                     </div>
                 </div>
 
-                <div className="w-full flex justify-center items-center" style={{ height: `${tileSize}px` }}>
+                <div className="flex items-center justify-center w-full" style={{ height: `${tileSize}px` }}>
                     <div className="flex gap-8">
                     {
                         variant === "large_hands" ? [0, 1].map((_, idx) => 

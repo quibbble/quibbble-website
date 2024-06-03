@@ -14,12 +14,12 @@ export function FAQ() {
         <div className="w-full max-w-6xl">
           <Navbar />
           <div className="flex flex-col items-center w-full">
-            <div className="flex mt-4 md:mt-8 w-full">
+            <div className="flex w-full mt-4 md:mt-8">
                 <span className="hidden lg:flex"> 
                     <QCorner />
                 </span>
-                <div className="md:ml-4 w-full flex flex-col">
-                  <div className="flex flex-wrap-reverse justify-between items-center w-full bg-dark-900 p-8 rounded-3xl opacity-0 animate-fade fill-mode-forwards duration-500 drop-shadow-md">
+                <div className="flex flex-col w-full md:ml-4">
+                  <div className="flex flex-wrap-reverse items-center justify-between w-full p-8 duration-500 opacity-0 bg-dark-900 rounded-3xl animate-fade fill-mode-forwards drop-shadow-md">
                     <div className={`font-lobster text-yellow text-4xl`}>
                       FAQ
                     </div>
@@ -52,7 +52,7 @@ export function FAQ() {
                   <Fact 
                     className="opacity-0 animate-fade fill-mode-forwards animation-delay-[425ms]"
                     question={"Don't see your question?"} 
-                    answer={<div>Please reach out to <a className="text-yellow hover:text-white underline transition ease-in-out duration-300" href="mailto:hello@quibbble.com">hello@quibbble.com</a>. We'll get back to you as soon as possible.</div>} 
+                    answer={<div>Please reach out to <a className="underline transition duration-300 ease-in-out text-yellow hover:text-white" href="mailto:hello@quibbble.com">hello@quibbble.com</a>. We'll get back to you as soon as possible.</div>} 
                   />
                 </div>
             </div>
@@ -68,7 +68,7 @@ function Fact({question, answer, className}) {
 
   return (
     <div onClick={() => setShow(!show)} className={`mt-2 cursor-pointer text-white hover:text-slate transition-colors duration-500 ease-in-out bg-dark-900 p-8 rounded-3xl drop-shadow-m ${className}`}>
-      <p className="font-bold flex items-center">{ show ? <BiSolidDownArrow className="text-yellow mr-2" /> : <BiSolidRightArrow className="text-yellow mr-2" /> } { question }</p>
+      <p className="flex items-center font-bold">{ show ? <BiSolidDownArrow className="mr-2 text-yellow" /> : <BiSolidRightArrow className="mr-2 text-yellow" /> } { question }</p>
       <div style={show ? {
           maxHeight: "300px",
           transition: "max-height 0.5s ease-in",

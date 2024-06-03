@@ -152,10 +152,10 @@ export const Carcassonne = forwardRef((props, ref) => {
 
     return (
         <DndContext autoScroll={ false } onDragEnd={ handleDragEnd } sensors={ sensors }>
-            <div className="w-full h-full flex flex-col justify-center items-center grow">
-                <div ref={ scrollRef } onScrollCapture={ handleScroll } className="box-border relative overflow-auto w-full flex items-center justify-center flex-col grow">
+            <div className="flex flex-col items-center justify-center w-full h-full grow">
+                <div ref={ scrollRef } onScrollCapture={ handleScroll } className="box-border relative flex flex-col items-center justify-center w-full overflow-auto grow">
                     <div className="sticky w-full top-10 md:top-0 h-0 flex justify-between z-[999]">
-                        <div className="m-2 font-bold text-base text-slate">
+                        <div className="m-2 text-base font-bold text-slate">
                             <div className="flex items-center justify-center">
                                 <PiPuzzlePieceFill /> { tilesRemaining }
                             </div>
@@ -170,12 +170,12 @@ export const Carcassonne = forwardRef((props, ref) => {
                             </div>
                         </div>
                         <div className="m-2">
-                            <div onClick={ zoomIn } className="rounded-full w-10 h-10 bg-slate cursor-pointer font-bold text-3xl flex items-center justify-center mb-2 select-none">+</div>
-                            <div onClick={ zoomOut } className="rounded-full w-10 h-10 bg-slate cursor-pointer font-bold text-3xl flex items-center justify-center select-none">-</div>
+                            <div onClick={ zoomIn } className="flex items-center justify-center w-10 h-10 mb-2 text-3xl font-bold rounded-full cursor-pointer select-none bg-slate">+</div>
+                            <div onClick={ zoomOut } className="flex items-center justify-center w-10 h-10 text-3xl font-bold rounded-full cursor-pointer select-none bg-slate">-</div>
                         </div>
                     </div>
-                    <div className="relative overflow-auto w-full flex items-center justify-center flex-col grow no-scrollbar">
-                        <div className="absolute top-0 left-0 flex items-center justify-center flex-col min-w-full min-h-full">
+                    <div className="relative flex flex-col items-center justify-center w-full overflow-auto grow no-scrollbar">
+                        <div className="absolute top-0 left-0 flex flex-col items-center justify-center min-w-full min-h-full">
                         {
                             Array.from({ length: maxY-minY+1 }, (_, y) => maxY+y*-1).map(y =>
                                 <div key={ y } className="flex">
@@ -260,7 +260,7 @@ export const Carcassonne = forwardRef((props, ref) => {
                     </div>
                 </div>
 
-                <div className="my-4 w-full flex justify-center items-center" style={{ minHeight: tileSize }}>
+                <div className="flex items-center justify-center w-full my-4" style={{ minHeight: tileSize }}>
                     {
                         turn === team && !playTile ? 
                             <>
@@ -271,7 +271,7 @@ export const Carcassonne = forwardRef((props, ref) => {
                                             scrollX={ scrollX } scrollY={ scrollY } />
                                     </div>
                                 </div>
-                                <div className="ml-8 px-4 py-2 text-sm font-bold bg-dark-500 text-slate cursor-pointer rounded-md" onClick={ () => pass() }>
+                                <div className="px-4 py-2 ml-8 text-sm font-bold rounded-md cursor-pointer bg-dark-500 text-slate" onClick={ () => pass() }>
                                     pass
                                 </div>
                             </> :

@@ -14,12 +14,12 @@ export function Community() {
         <div className="w-full max-w-6xl">
           <Navbar />
           <div className="flex flex-col items-center w-full">
-            <div className="flex mt-4 md:mt-8 w-full">
+            <div className="flex w-full mt-4 md:mt-8">
                 <span className="hidden lg:flex"> 
                     <QCorner />
                 </span>
-                <div className="md:ml-4 w-full flex flex-col">
-                  <div className="flex justify-between items-center w-full bg-dark-900 p-8 rounded-3xl opacity-0 animate-fade fill-mode-forwards drop-shadow-md">
+                <div className="flex flex-col w-full md:ml-4">
+                  <div className="flex items-center justify-between w-full p-8 opacity-0 bg-dark-900 rounded-3xl animate-fade fill-mode-forwards drop-shadow-md">
                     <div className={`font-lobster text-yellow text-4xl`}>
                         Community
                     </div>
@@ -33,7 +33,7 @@ export function Community() {
                       We do not show ads nor track and sell user data. This is purely a passion project with all expenses covered through donations or paid for out of pocket. If you enjoy Quibbble and want to contribute then check out the resources below. As always, thanks for playing!
                     </p>
                   </div>
-                  <div className="mt-2 md:mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 gap-3 mt-2 md:mt-4 sm:grid-cols-3">
                     <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[200ms]">
                         <ExternalButton color={'yellow'} href={"https://discord.com/invite/VKvjutuhUp"}>
                           <h1 className={`font-lobster text-4xl text-yellow`}>Chat</h1>
