@@ -12,7 +12,7 @@ export function Profile() {
         <div className="flex items-center justify-center w-full h-screen">
             <div className="flex flex-col items-center justify-center w-full h-screen opacity-0 animate-fade fill-mode-forwards">
                 <div className="flex flex-col justify-center px-8 py-12 m-4 bg-dark-900 rounded-3xl">
-                    <h1 className={`max-w-96 text-white mb-6 text-4xl drop-shadow-m font-lobster`}>Change your name</h1>
+                    <h1 className={`max-w-96 text-yellow mb-6 text-4xl drop-shadow-m font-lobster`}>Change your name</h1>
                     <input className="p-2 text-white rounded-md bg-dark-500 focus:outline focus:outline-2 outline-yellow" type="text" value={ name } onChange={e => setName(e.target.value)}/>
                     <Link className="flex items-center justify-center mt-4 font-bold group " to={`/`} state={{ from: location.pathname }} >
                         <svg className="ml-2 transition duration-500 ease-in-out fill-slate group-hover:fill-yellow group-hover:-translate-x-2" width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
