@@ -45,7 +45,6 @@ export function Game() {
     }, [])
 
     const [game, send] = useQuibbbleGame({
-        host: "apiv2.quibbble.com",
         gameKey: gameKey,
         gameId: gameId
     })

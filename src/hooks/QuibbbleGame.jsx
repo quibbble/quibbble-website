@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
-export function useQuibbbleGame({ host, gameKey, gameId }) {
+const host = import.meta.env.VITE_QUIBBBLE_HOST
+const ssl  = import.meta.env.VITE_SSL
+
+export function useQuibbbleGame({ gameKey, gameId }) {
 
     const name = localStorage.getItem("name")
 
@@ -19,7 +22,7 @@ export function useQuibbbleGame({ host, gameKey, gameId }) {
             if (reconnecting) return
             if (!ws.current) {
 
-                const client = new WebSocket(`wss://${ host }/game/${ gameKey }/${ gameId }?name=${name}`)
+                const client = new WebSocket(`ws${ssl === true ? "s" : ""}://${ host }/game/${ gameKey }/${ gameId }?name=${name}`)
                 ws.current = client
     
                 client.onopen = () => setGame(((p) => { return({ ...p, online: true, chat: [] }) }))

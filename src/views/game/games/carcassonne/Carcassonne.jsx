@@ -1,9 +1,9 @@
 import React, { useEffect, useState, forwardRef, useCallback, createRef } from "react";
 import { Tile, DraggableTile } from "./Tile";
 import TileDropSpace from "./TileDropSpace";
-import { DraggableToken } from "./Token";
+import { DraggableToken, Token } from "./Token";
 import { DndContext, PointerSensor, useSensors, useSensor, rectIntersection, closestCenter, pointerWithin, closestCorners } from '@dnd-kit/core';
-import { BOTTOM, LEFT, RIGHT, TOP } from "./models/side";
+import { BOTTOM, CENTER, LEFT, RIGHT, TOP } from "./models/side";
 import { FARM } from "./models/structure";
 import { BOTTOMA, BOTTOMB, LEFTA, LEFTB, RIGHTA, RIGHTB, TOPA, TOPB } from "./models/farmside";
 import { COLORMAP } from "./models/color";
@@ -247,7 +247,7 @@ export const Carcassonne = forwardRef((props, ref) => {
                                                                 connected_cities: xyToTile[`${x}${y}`].connected_cities,
                                                                 banner: xyToTile[`${x}${y}`].banner
                                                             }}
-                                                            token={ boardTokens.reduce((acc, token) => acc ? acc : (token.x == x && token.y == y ? { side: token.side, color: COLORMAP[token.team] } : undefined), undefined) }
+                                                            token={ boardTokens.reduce((acc, token) => acc ? acc : (token.x == x && token.y == y ? { type: token.type, side: (token.side == "" ? CENTER: token.side), color: COLORMAP[token.team] } : undefined), undefined) }
                                                             tokenDroppable={ winners.length === 0 && !playTile && lastPlacedTiles && lastPlacedTiles[turn] && lastPlacedTiles[turn].x === xyToTile[`${x}${y}`].x && lastPlacedTiles[turn].y === xyToTile[`${x}${y}`].y }
                                                             hoverColor={ COLORMAP[team] }
                                                     /> : null
@@ -313,6 +313,14 @@ export const Carcassonne = forwardRef((props, ref) => {
                                                         scrollX={ scrollX } scrollY={ scrollY } /> 
                                             </div> : null
                                     }
+                                </div>
+                                <div className="flex items-center ml-8 opacity-65">
+                                    <div className="flex items-center">
+                                        <div className="mr-2 font-bold text-slate">{ team ? tokens[team] : "0" }</div>
+                                        <div style={{ width: tileSize/6, height: tileSize/6 }}>
+                                            <div className={ `rounded-full bg-${ team }` } style={{ width: tileSize/6, height: tileSize/6 }}/>
+                                        </div>
+                                    </div>
                                 </div>
                             </>
                     }

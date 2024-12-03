@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
 const host = import.meta.env.VITE_QUIBBBLE_HOST
+const ssl  = import.meta.env.VITE_SSL
 
 export function useQCorner() {
 
@@ -35,7 +36,7 @@ export function useQCorner() {
         async function connect() {
             if (reconnecting) return
             if (!ws.current) {
-                let url = `wss://${host}/qcorner?name=${name}`
+                let url = `ws${ssl === true ? "s" : ""}://${host}/qcorner?name=${name}`
                 const client = new WebSocket(url)
                 ws.current = client
     
