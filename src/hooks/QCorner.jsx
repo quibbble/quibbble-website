@@ -36,7 +36,7 @@ export function useQCorner() {
         async function connect() {
             if (reconnecting) return
             if (!ws.current) {
-                let url = `ws${ssl === true ? "s" : ""}://${host}/qcorner?name=${name}`
+                let url = `ws${ssl === "true" ? "s" : ""}://${host}/qcorner?name=${name}`
                 const client = new WebSocket(url)
                 ws.current = client
     

@@ -22,7 +22,7 @@ export function useQuibbbleGame({ gameKey, gameId }) {
             if (reconnecting) return
             if (!ws.current) {
 
-                const client = new WebSocket(`ws${ssl === true ? "s" : ""}://${ host }/game/${ gameKey }/${ gameId }?name=${name}`)
+                const client = new WebSocket(`ws${ssl === "true" ? "s" : ""}://${ host }/game/${ gameKey }/${ gameId }?name=${name}`)
                 ws.current = client
     
                 client.onopen = () => setGame(((p) => { return({ ...p, online: true, chat: [] }) }))

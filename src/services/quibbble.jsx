@@ -21,7 +21,7 @@ export const createGame = async (key, id, teams, variant, kind) => {
 
     let config = {
         method: 'POST',
-        url: `http${ssl === true ? "s" : ""}://${ host }/game`,
+        url: `http${ssl === "true" ? "s" : ""}://${ host }/game`,
         data: qgn
     };
     return axios(config)
@@ -31,7 +31,7 @@ export const createGame = async (key, id, teams, variant, kind) => {
 export const loadGame = async (key, id) => {
     let config = {
         method: 'PUT',
-        url: `http${ssl === true ? "s" : ""}://${ host }/game?key=${ key }&id=${ id }`,
+        url: `http${ssl === "true" ? "s" : ""}://${ host }/game?key=${ key }&id=${ id }`,
     };
     return axios(config)
         .catch(error => error.response)
@@ -40,7 +40,7 @@ export const loadGame = async (key, id) => {
 export const GetSnapshot = async (gameKey, gameId) => {
     let config = {
         method: 'GET',
-        url: `http${ssl === true ? "s" : ""}://${ host }/${ gameKey }/${ gameId }/snapshot?format=json`,
+        url: `http${ssl === "true" ? "s" : ""}://${ host }/${ gameKey }/${ gameId }/snapshot?format=json`,
     };
     return axios(config)
         .catch(error => error.response)
@@ -49,7 +49,7 @@ export const GetSnapshot = async (gameKey, gameId) => {
 export const GetActivity = async () => {
     let config = {
         method: 'GET',
-        url: `http${ssl === true ? "s" : ""}://${ host }/game/activity`,
+        url: `http${ssl === "true" ? "s" : ""}://${ host }/game/activity`,
     };
     return axios(config)
         .catch(error => error.response)
@@ -58,7 +58,7 @@ export const GetActivity = async () => {
 export const GetHealth = async () => {
     let config = {
         method: 'GET',
-        url: `http${ssl === true ? "s" : ""}://${ host }/health`,
+        url: `http${ssl === "true" ? "s" : ""}://${ host }/health`,
     };
     return axios(config)
         .catch(error => error.response)
