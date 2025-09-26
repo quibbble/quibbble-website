@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://www.quibbble.com/sitemap.txt
