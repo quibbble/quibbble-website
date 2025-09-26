@@ -24,7 +24,7 @@ export function Community() {
                         Community
                     </div>
                   </div>
-                  <div className="text-lg mt-2 md:mt-4 p-8 grow bg-dark-900 rounded-3xl text-gray shadow-md opacity-0 animate-fade fill-mode-forwards drop-shadow-md animation-delay-[100ms]">
+                  <div className="text-lg mt-2 md:mt-4 p-8 grow bg-dark-900 rounded-3xl text-gray shadow-md opacity-0 animate-fade fill-mode-forwards drop-shadow-md animation-delay-[50ms]">
                     <p>
                       Created in 2020, Quibbble is a fully free and Open Source board game platform. Since its inception, thousands of people have played games on the platform with hopefully many more to come.
                     </p>
@@ -34,19 +34,19 @@ export function Community() {
                     </p>
                   </div>
                   <div className="grid grid-cols-1 gap-3 mt-2 md:mt-4 sm:grid-cols-3">
-                    <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[200ms]">
+                    <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[100ms]">
                         <ExternalButton color={'yellow'} href={"https://discord.com/invite/VKvjutuhUp"}>
                           <h1 className={`font-lobster text-4xl text-yellow`}>Chat</h1>
                           <p className='mt-4 grow'>Join our Discord and chat with fellow Quibbblers.</p>
                         </ExternalButton>
                     </span>
-                    <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[300ms]">
+                    <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[150ms]">
                         <ExternalButton href={"https://github.com/quibbble"} color={'yellow'}>
                           <h1 className={`font-lobster text-4xl text-yellow`}>Code</h1>
                           <p className='mt-4 grow'>Add a game or contribute new features.</p>
                         </ExternalButton>
                     </span>
-                    <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[400ms]">
+                    <span className="opacity-0 animate-fade fill-mode-forwards animation-delay-[200ms]">
                         <ExternalButton href={"https://www.buymeacoffee.com/quibbble"} color={'yellow'}>
                           <h1 className={`font-lobster text-4xl text-yellow`}>Donate</h1>
                           <p className='mt-4 grow'>Help out with server and development costs.</p>

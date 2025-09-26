@@ -33,7 +33,7 @@ export function Games() {
                 <div className="grid grid-cols-2 gap-2 mt-2 lg:mt-4 sm:grid-cols-3 md:grid-cols-4 md:gap-3 lg:gap-4">
                   {
                     filtered.map((key, i) => 
-                      <span key={i} className={`opacity-0 animate-fade animation-delay-[${(i+1)*50}ms] fill-mode-forwards`}>
+                      <span key={i} className={`opacity-0 animate-fade animation-delay-[${(i+1)*25}ms] fill-mode-forwards`}>
                         <GameButton game={key} />
                       </span>)
                   }

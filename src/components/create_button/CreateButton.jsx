@@ -24,8 +24,11 @@ export function CreateButton({gameKey, kind}) {
 
     const [teams, setTeams] = useState(2)
     const [variant, setVariant] = useState(gamedata[gameKey].variants ? gamedata[gameKey].variants[0] : null)
+    const [disable, setDisable] = useState(false)
 
     const handlePlay = async e => {
+        if (disable) return
+        setDisable(true)
         e.preventDefault()
         const gameId = CreateID()
         let resp = await createGame(gameKey, gameId, teams, variant, kind)

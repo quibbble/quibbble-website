@@ -23,12 +23,12 @@ export function Home() {
           <div className="grid grid-cols-2 gap-2 mt-2 md:mt-4 md:grid-cols-4 md:gap-4">
             {
               display.map((key, i) => 
-                <span key={i} className={`opacity-0 animate-fade animation-delay-[${200+((i+1)*100)}ms] fill-mode-forwards`}>
+                <span key={i} className={`opacity-0 animate-fade animation-delay-[${50+((i+1)*50)}ms] fill-mode-forwards`}>
                   <GameButton game={key} />
                 </span>)
             }
           </div>
-          <span className="opacity-0 animate-fade animation-delay-[950ms] fill-mode-forwards">
+          <span className="opacity-0 animate-fade animation-delay-[400ms] fill-mode-forwards">
             <Link className="flex items-center justify-center mt-4 font-bold group" to={'/games'} state={{ from: location.pathname }} >
               more games
               <svg className="ml-2 transition duration-500 ease-in-out fill-dark-900 group-hover:translate-x-2" width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">

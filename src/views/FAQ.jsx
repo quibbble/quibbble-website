@@ -25,32 +25,32 @@ export function FAQ() {
                     </div>
                   </div>
                   <Fact 
-                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[150ms]"
+                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[50ms]"
                     question={"Can I chat or video call in game?"} 
                     answer={"Yes! Quibbble supports basic in game chatting. To voice or video call please use an external provider such as Discord or Skype."} 
                   />
                   <Fact 
-                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[225ms]"
+                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[100ms]"
                     question={"Can I come back to a game later?"}
                     answer={"Yes! All games are saved for at least 30 days. You and your friends can pick up where you left off by returning to the same game link in the future."} 
                   />
                   <Fact 
-                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[300ms]"
+                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[150ms]"
                     question={"Can everyone play on one device?"} 
                     answer={<p>Yes! Just create a <span className="italic">local</span> game and then pass the device around on each turn.</p>} 
                   />
                   <Fact 
-                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[350ms]"
+                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[200ms]"
                     question={"What data do you collect?"} 
                     answer={"We collect the total number of visits to the site and total game counts to gauge overall interest. We do not collect any personally identifiable information and never will."} 
                   />
                   <Fact 
-                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[400ms]"
+                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[250ms]"
                     question={"How does Quibbble make money?"} 
                     answer={<p>We don't! This is purely a passion project. It's not cheap to run the servers and continue with updates so please consider <a href={"https://www.buymeacoffee.com/quibbble"} target="_blank" className="italic underline text-yellow">donating</a> if you want to help us keep the lights on.</p>} 
                   />
                   <Fact 
-                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[425ms]"
+                    className="opacity-0 animate-fade fill-mode-forwards animation-delay-[300ms]"
                     question={"Don't see your question?"} 
                     answer={<div>Please reach out to <a className="underline transition duration-300 ease-in-out text-yellow hover:text-white" href="mailto:hello@quibbble.com">hello@quibbble.com</a>. We'll get back to you as soon as possible.</div>} 
                   />
